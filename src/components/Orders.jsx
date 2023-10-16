@@ -8,6 +8,8 @@ const Orders = () => {
     const { order, total_order } = useOrderContext();
     const { isAuthenticated, user } = useAuth0();
 
+    console.log(order);
+
     if (total_order === 0 || isAuthenticated === false) {
         return (
             <>

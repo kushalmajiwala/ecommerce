@@ -18,21 +18,22 @@ const Cart = () => {
     const [details, setDetails] = useState(false);
     const [emptyAddress, setEmptyAddress] = useState(false);
     const [orderPlace, setOrderPlace] = useState(false);
+    const [smallAddress, setSmallAddress] = useState(false);
     const { addOrderData } = useOrderContext();
 
     var options = {
-        "key": "rzp_test_ZneboMX8f8lDSh", 
-        "amount": total_price + shipping_fees, 
+        "key": "rzp_test_ZneboMX8f8lDSh",
+        "amount": total_price + shipping_fees,
         "currency": "INR",
-        "name": "Unique Store", 
+        "name": "Unique Store",
         "description": "Product Purchase",
         "image": "https://ngaxtqtjphtkyssalygr.supabase.co/storage/v1/object/public/images/unique_store_logo.png",
         "handler": () => {
             paymentSuccessful();
         },
-        "prefill": { 
-            "name": "Kushal Majiwala", 
-            "email": "kushalmajiwala@gmail.com", 
+        "prefill": {
+            "name": "Kushal Majiwala",
+            "email": "kushalmajiwala@gmail.com",
             "contact": "9106884674"
         },
         "notes": {
@@ -46,8 +47,13 @@ const Cart = () => {
     const Razorpay = useRazorpay();
 
     const saveDetails = () => {
-        addUserDetails(user.email, address, payment_method);
-        setDetails(true);
+        if (address.length < 25) {
+            setSmallAddress(true);
+        }
+        else {
+            addUserDetails(user.email, address, payment_method);
+            setDetails(true);
+        }
     }
 
     const openDetailsDialog = () => {
@@ -59,19 +65,16 @@ const Cart = () => {
     }
 
     const validateAddress = () => {
-        if(address === "")
-        {
+        if (address === "") {
             setEmptyAddress(true);
         }
-        else if(payment_method === "cash")
-        {
+        else if (payment_method === "cash") {
             cart.map((curElem) => {
-                addOrderData(curElem.id, user.email, new Date().toLocaleDateString(), address, curElem.image, curElem.price, curElem.amount, curElem.name, curElem.description);
+                addOrderData(curElem.id, user.email, new Date().toLocaleDateString(), address, curElem.image, curElem.price, curElem.amount, curElem.name, curElem.description, "remaining");
             })
             setOrderPlace(true);
         }
-        else if(payment_method === "online")
-        {
+        else if (payment_method === "online") {
             var rzp1 = new Razorpay(options);
             rzp1.open();
         }
@@ -79,7 +82,7 @@ const Cart = () => {
 
     const paymentSuccessful = () => {
         cart.map((curElem) => {
-            addOrderData(curElem.id, user.email, new Date().toLocaleDateString(), address, curElem.image, curElem.price, curElem.amount, curElem.name, curElem.description);
+            addOrderData(curElem.id, user.email, new Date().toLocaleDateString(), address, curElem.image, curElem.price, curElem.amount, curElem.name, curElem.description, "remaining");
         })
         setOrderPlace(true);
     }
@@ -196,6 +199,16 @@ const Cart = () => {
                                                     <RadioButton name="pizza" value="online" onChange={(e) => setPayment_method(e.value)} checked={payment_method === 'online'} className='md:ml-10' />
                                                     <label htmlFor="ingredient3" className="ml-2">Pay Online</label>
                                                 </div>
+                                            </div>
+                                        </div>
+                                    </Dialog>
+                                    <Dialog visible={smallAddress} draggable={false} className="w-11/12 md:w-1/3" onHide={() => setSmallAddress(false)}>
+                                        <div className='flex justify-center'>
+                                            <div className='text-center'>
+                                                <i className="bi bi-x-circle text-7xl text-red-500"></i>
+                                                <p className="font-bold text-lg mt-4">
+                                                    Address must be atleast 25 character long
+                                                </p>
                                             </div>
                                         </div>
                                     </Dialog>

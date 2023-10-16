@@ -25,7 +25,7 @@ const OrderProvider = ({ children }) => {
         }
     }
 
-    const addOrderData = async (id, email, placed_date, placed_address, item_image, item_price, quantity, name, description) => {
+    const addOrderData = async (id, email, placed_date, placed_address, item_image, item_price, quantity, name, description, order_status) => {
         let actual_id = id.slice(0, -7);
         if (isAuthenticated) {
             const insert_data = {
@@ -37,7 +37,8 @@ const OrderProvider = ({ children }) => {
                 item_price: item_price,
                 quantity: quantity,
                 name: name,
-                description: description
+                description: description,
+                order_status: order_status
             }
             const { error } = await supabase
                 .from('orders')

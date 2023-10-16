@@ -8,7 +8,7 @@ import supabase from "../helpers/supabase_setup";
 import { useEffect } from 'react';
 
 const Nav = () => {
-    const { total_item } = useCartContext();
+    const { total_item, addUserDetails } = useCartContext();
     const [navVisibility, setNavVisibility] = useState('hidden');
     const [showMenuBtn, setShowMenuBtn] = useState('');
 
@@ -21,7 +21,7 @@ const Nav = () => {
 
     const logoutWithGoogle = () => {
         logout({ logoutParams: { returnTo: window.location.origin } });
-        console.log("Loged out")
+        console.log("Logged out")
     }
 
     const updateNavVisibility = () => {
@@ -34,6 +34,13 @@ const Nav = () => {
             setShowMenuBtn('');
         }
     }
+
+    useEffect(() => {
+        if(isAuthenticated)
+        {
+            addUserDetails(user.email, "", "");
+        }
+    }, [isAuthenticated])
 
     return (
         <>

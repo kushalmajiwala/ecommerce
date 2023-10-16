@@ -100,7 +100,7 @@ const CartProvider = ({ children }) => {
         }
     }
     const addUserDetails = async (e, a, p) => {
-
+        
         const insert_data = {
             email: e,
             address: a,

@@ -8,10 +8,14 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { Dialog } from 'primereact/dialog';
 
-const OrderItem = ({ uniqueid, id, placed_date, placed_address, item_image, item_price, quantity, name, description }) => {
+const OrderItem = ({ uniqueid, id, placed_date, placed_address, item_image, item_price, quantity, name, description, order_status }) => {
     const { isAuthenticated, user } = useAuth0();
     const { cancelOrder } = useOrderContext();
     const [confirmDelete, setConfirmDelete] = useState(false);
+
+    var dt = new Date(placed_date);
+    dt.setDate(dt.getDate() + 5);
+    var delivery_date = dt.toLocaleDateString();
 
     const deleteConfirm = () => {
         setConfirmDelete(true);
@@ -30,6 +34,9 @@ const OrderItem = ({ uniqueid, id, placed_date, placed_address, item_image, item
                         <div className=''>
                             <p className='text-sm'>ORDER PLACED <br />{placed_date}</p>
                         </div>
+                        <div className='hidden md:block'>
+                            <p>Expected Delivery <br />{delivery_date}</p>
+                        </div>
                         <div>
                             <p className='text-sm'>TOTAL <br /><FormatPrice price={item_price} /></p>
                         </div>
@@ -39,14 +46,28 @@ const OrderItem = ({ uniqueid, id, placed_date, placed_address, item_image, item
                     </div>
                     <div className='w-1/3 flex justify-end items-center'>
                         <div className='w-full flex text-center justify-end items-center'>
-                            <p className='pt-3 pr-4 hidden md:block'>
-                                <NavLink to={`../singleproduct/${id}`} className="no-underline text-sky-600 hover:text-sky-800 hover:underline">View Order Details</NavLink><br />
-                                <span className='text-red-600 hover:text-red-800 hover:underline cursor-pointer' onClick={() => deleteConfirm()}>Cancel Booking</span>
-                            </p>
-                            <p className='pt-3 pr-4 md:hidden'>
-                                <NavLink to={`../singleproduct/${id}`} className="no-underline text-sky-600 hover:text-sky-800 hover:underline">View Order</NavLink><br />
-                                <span className='text-red-600 hover:text-red-800 hover:underline cursor-pointer' onClick={() => deleteConfirm()}>Cancel Order</span>
-                            </p>
+                            {order_status == "remaining" ?
+                                <p className='pt-3 pr-4 hidden md:block'>
+                                    <NavLink to={`../singleproduct/${id}`} className="no-underline text-sky-600 hover:text-sky-800 hover:underline">View Order Details</NavLink><br />
+                                    <span className='text-red-600 hover:text-red-800 hover:underline cursor-pointer' onClick={() => deleteConfirm()}>Cancel Booking</span>
+                                </p>
+                                :
+                                <p className='pt-3 pr-4 hidden md:block'>
+                                    <NavLink to={`../singleproduct/${id}`} className="no-underline text-sky-600 hover:text-sky-800 hover:underline">View Order Details</NavLink><br />
+                                    <span className='text-black cursor-pointer'>Delivered</span>
+                                </p>
+                            }
+                            {order_status == "remaining" ?
+                                <p className='pt-3 pr-4 md:hidden'>
+                                    <NavLink to={`../singleproduct/${id}`} className="no-underline text-sky-600 hover:text-sky-800 hover:underline">View Order</NavLink><br />
+                                    <span className='text-red-600 hover:text-red-800 hover:underline cursor-pointer' onClick={() => deleteConfirm()}>Cancel Order</span>
+                                </p>
+                                :
+                                <p className='pt-3 pr-4 md:hidden'>
+                                    <NavLink to={`../singleproduct/${id}`} className="no-underline text-sky-600 hover:text-sky-800 hover:underline">View Order</NavLink><br />
+                                    <span className='text-black cursor-pointer'>Delivered</span>
+                                </p>
+                            }
                         </div>
                     </div>
                 </div>
@@ -59,7 +80,7 @@ const OrderItem = ({ uniqueid, id, placed_date, placed_address, item_image, item
                     </div>
                     <div className='w-2/3 pt-2 ml-2'>
                         <p className='text-lg font-medium'>{name}</p>
-                        <p className='-mt-4'>{description.substr(0, 50)}...</p>
+                        <p className='-mt-4'>{description.substr(0, 45)}...</p>
                         <NavLink to={`../singleproduct/${id}`} className="no-underline"><button className='border-2 px-3 py-1 -mt-4 border-blue-500 bg-blue-100 hover:bg-blue-500 text-black hover:text-white rounded-lg'>View Your Item</button></NavLink>
                     </div>
                 </div>
