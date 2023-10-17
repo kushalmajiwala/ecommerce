@@ -8,7 +8,7 @@ import supabase from "../helpers/supabase_setup";
 import { useEffect } from 'react';
 
 const Nav = () => {
-    const { total_item, addUserDetails } = useCartContext();
+    const { total_item, addUserOnFirstLogin } = useCartContext();
     const [navVisibility, setNavVisibility] = useState('hidden');
     const [showMenuBtn, setShowMenuBtn] = useState('');
 
@@ -38,7 +38,7 @@ const Nav = () => {
     useEffect(() => {
         if(isAuthenticated)
         {
-            addUserDetails(user.email, "", "");
+            addUserOnFirstLogin(user.email, "", "");
         }
     }, [isAuthenticated])
 

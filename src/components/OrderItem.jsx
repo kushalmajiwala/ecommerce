@@ -54,7 +54,7 @@ const OrderItem = ({ uniqueid, id, placed_date, placed_address, item_image, item
                                 :
                                 <p className='pt-3 pr-4 hidden md:block'>
                                     <NavLink to={`../singleproduct/${id}`} className="no-underline text-sky-600 hover:text-sky-800 hover:underline">View Order Details</NavLink><br />
-                                    <span className='text-black cursor-pointer'>Delivered</span>
+                                    <span className='text-green-500 cursor-pointer'>Delivered</span>
                                 </p>
                             }
                             {order_status == "remaining" ?
@@ -65,7 +65,7 @@ const OrderItem = ({ uniqueid, id, placed_date, placed_address, item_image, item
                                 :
                                 <p className='pt-3 pr-4 md:hidden'>
                                     <NavLink to={`../singleproduct/${id}`} className="no-underline text-sky-600 hover:text-sky-800 hover:underline">View Order</NavLink><br />
-                                    <span className='text-black cursor-pointer'>Delivered</span>
+                                    <span className='text-green-500 cursor-pointer'>Delivered</span>
                                 </p>
                             }
                         </div>
@@ -95,6 +95,11 @@ const OrderItem = ({ uniqueid, id, placed_date, placed_address, item_image, item
                         <p className='text-lg font-medium'>{name}</p>
                         <p className='-mt-4'>{description.substr(0, 140)}...</p>
                         <NavLink to={`../singleproduct/${id}`} className="no-underline"><button className='border-2 px-3 py-1 -mt-4 border-blue-500 bg-blue-100 hover:bg-blue-500 text-black hover:text-white rounded-lg'>View Your Item</button></NavLink>
+                        {order_status == "remaining" 
+                        ? "" 
+                        :
+                        <button className='border-2 ml-4 px-3 py-1 -mt-4 border-red-400 bg-red-100 hover:bg-red-400 text-black hover:text-white rounded-lg'>Give Feedback</button>
+                        }
                     </div>
                 </div>
                 <Dialog visible={confirmDelete} draggable={false} closable={false} className="w-11/12 md:w-1/3">

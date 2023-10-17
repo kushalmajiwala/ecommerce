@@ -25,11 +25,11 @@ const ListView = ({ products }) => {
                   <figure className='relative md:w-1/2 flex items-center px-2 pt-2'>
                     <img src={image} alt={name} className='w-60 h-40' />
                   </figure>
-                  <div className='md:w-1/2 pr-5 flex items-center'>
+                  <div className='pr-5 flex items-center'>
                     <div className='w-full'>
                       <p className='text-2xl -mt-1'>{name}</p>
                       <p className='text-sm -mt-2 text-gray-400'><FormatPrice price={price} /></p>
-                      <p className='test-sm -mt-4 text-justify'>{description.slice(0, 90)}</p>
+                      <p className='test-sm -mt-4 text-justify'>{description.slice(0, 110)}</p>
                       <NavLink to={`/singleproduct/${id}`}>
                         <button className='px-3 py-2.5 -mt-2 text-sm bg-blue-500 text-white hover:text-white hover:bg-blue-600'>
                           READ MORE

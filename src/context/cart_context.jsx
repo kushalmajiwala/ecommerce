@@ -100,7 +100,6 @@ const CartProvider = ({ children }) => {
         }
     }
     const addUserDetails = async (e, a, p) => {
-        
         const insert_data = {
             email: e,
             address: a,
@@ -113,6 +112,39 @@ const CartProvider = ({ children }) => {
             .eq("email", e)
 
         if (data.length > 0) {
+            console.log(data);
+            const { err } = await supabase
+                .from('user_details')
+                .update({
+                    address: a,
+                    payment_method: p
+                })
+                .eq("email", e)
+            if (err) console.log(err);
+        }
+        else {
+            console.log(e);
+            const { error } = await supabase
+                .from('user_details')
+                .insert(insert_data)
+            if (error) console.log(error);
+        }
+    }
+
+    const addUserOnFirstLogin = async (e, a, p) => {
+        const insert_data = {
+            email: e,
+            address: a,
+            payment_method: p
+        }
+
+        let { data, err } = await supabase
+            .from('user_details')
+            .select('*')
+            .eq("email", e)
+
+        var data_obj = JSON.stringify(data);
+        if (data.length > 0 && (data_obj.address === "" || data_obj.payment_method === "")) {
             console.log(data);
             const { err } = await supabase
                 .from('user_details')
@@ -151,7 +183,7 @@ const CartProvider = ({ children }) => {
     }, [isAuthenticated]);
 
     return (
-        <CartContext.Provider value={{ ...state, ...userDetails, addToCart, removeItem, clearCart, setDecrease, setIncrease, addUserDetails, getUserDetails }}>
+        <CartContext.Provider value={{ ...state, ...userDetails, addToCart, removeItem, clearCart, setDecrease, setIncrease, addUserDetails, getUserDetails, addUserOnFirstLogin }}>
             {children}
         </CartContext.Provider>
     )
