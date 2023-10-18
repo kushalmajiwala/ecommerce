@@ -27,7 +27,7 @@ function App() {
     <>
       <Router>
         <Routes>
-          <Route path='/admin1' element={<AdminHome />}></Route>
+          <Route path='/admin' element={<AdminHome />}></Route>
         </Routes>
       </Router>
       {showAdmin == false ?
