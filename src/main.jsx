@@ -11,6 +11,7 @@ import { AppProvider } from './context/productcontext';
 import { FilterContextProvider } from './context/filtercontext';
 import { CartProvider } from './context/cart_context';
 import { OrderProvider } from './context/order_context';
+import { ContactProvider } from './context/contact_context.jsx';
 import { Auth0Provider } from '@auth0/auth0-react';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -23,13 +24,15 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   >
     <AppProvider>
       <FilterContextProvider>
-        <CartProvider>
-          <OrderProvider>
-            <React.StrictMode>
-              <App />
-            </React.StrictMode>
-          </OrderProvider>
-        </CartProvider>
+        <ContactProvider>
+          <CartProvider>
+            <OrderProvider>
+              <React.StrictMode>
+                <App />
+              </React.StrictMode>
+            </OrderProvider>
+          </CartProvider>
+        </ContactProvider>
       </FilterContextProvider>
     </AppProvider>
   </Auth0Provider>
