@@ -18,8 +18,22 @@ const ContactProvider = ({ children }) => {
             if(error) console.log(error);
     }
 
+    const addFeedback = async (id, m, r, e) => {
+        const feedback_details = {
+            id: id, 
+            message: m,
+            rating: r,
+            email: e
+        }
+        const { data, error } = await supabase
+            .from('product_feedback')
+            .insert(feedback_details)
+
+            if(error) console.log(error);
+    }
+
     return (
-        <ContactContext.Provider value={{ addContact }}>
+        <ContactContext.Provider value={{ addContact, addFeedback }}>
             {children}
         </ContactContext.Provider>
     )
