@@ -11,6 +11,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import './index.css';
 import AdminHome from './admin_comp/AdminHome';
+import AdminLogin from './admin_comp/AdminLogin'
 import { useEffect, useState } from 'react';
 
 function App() {
@@ -27,7 +28,7 @@ function App() {
     <>
       <Router>
         <Routes>
-          <Route path='/admin' element={<AdminHome />}></Route>
+          <Route path='/admin' element={<AdminLogin />}></Route>
         </Routes>
       </Router>
       {showAdmin == false ?
