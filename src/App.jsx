@@ -29,6 +29,7 @@ function App() {
       <Router>
         <Routes>
           <Route path='/admin' element={<AdminLogin />}></Route>
+          <Route path='/adminhome' element={<AdminHome />}></Route>
         </Routes>
       </Router>
       {showAdmin == false ?
