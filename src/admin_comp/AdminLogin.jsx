@@ -4,6 +4,7 @@ import bcrypt from 'bcryptjs'
 import { useAdminContext } from '../context/admin_context';
 import { Dialog } from 'primereact/dialog';
 import { useNavigate } from "react-router-dom";
+import { useEffect } from 'react';
 
 // var salt = bcrypt.genSaltSync(10);
 var salt = "$2a$10$O2mB4NXbEIb9PgFHCEzj0e";
@@ -22,12 +23,14 @@ const AdminLogin = () => {
         if (uname !== "" && upass !== "") {
             // var hash = bcrypt.hashSync(upass, salt);
             try {
-                await getAdminDetailsByUsername(uname);
-                const login_status = await bcrypt.compare(upass, password);
+                const data_fetched = await getAdminDetailsByUsername(uname);
+                const login_status = await bcrypt.compare(upass, data_fetched[0].password);
+                console.log(data_fetched);
                 if (login_status == false) {
                     setInvalidDetail(true);
                 }
                 else {
+                    localStorage.setItem("username", uname);
                     navigate("/adminhome");
                 }
             }
@@ -39,6 +42,14 @@ const AdminLogin = () => {
             setInvalidDetail(true);
         }
     }
+
+    useEffect(() => {
+        const localItem = localStorage.getItem("username");
+        if(localItem !== null)
+        {
+            navigate("/adminhome");
+        }
+    }, [])
 
     return (
         <>

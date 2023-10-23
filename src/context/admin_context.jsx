@@ -19,7 +19,7 @@ const AdminProvider = ({ children }) => {
         if (data) {
             setState({ ...state, username: data[0].username, email: data[0].email, password: data[0].password });
         }
-
+        return data;
     }
 
     return (
