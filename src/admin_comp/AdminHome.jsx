@@ -41,7 +41,7 @@ const AdminHome = () => {
           </div>
         </div>
       </div> */}
-      
+
 
       <div className=' bg-gray-300 w-screen h-screen'>
         <div>
@@ -49,19 +49,21 @@ const AdminHome = () => {
             className="absolute text-white text-4xl top-5 left-4 cursor-pointer"
             onClick={openSidebar}
           >
-            <i className="bi bi-filter-left px-2 bg-gray-900 rounded-md"></i>
+            <i className="bi bi-list px-2 bg-gray-900 rounded-md"></i>
           </span>
           <div
-            className="sidebar fixed top-0 bottom-0 lg:left-0 p-2 w-[300px] overflow-y-auto text-center bg-gray-900"
+            className="sidebar fixed top-0 bottom-0 lg:left-0 p-2 w-[300px] md:w-1/4 overflow-y-auto text-center bg-gray-900"
           >
             <div className="text-gray-100 text-xl">
-              <div className="p-2.5 mt-1 flex items-center">
-                <img src='https://ngaxtqtjphtkyssalygr.supabase.co/storage/v1/object/public/images/unique_store_logo.png' alt="no-image" className='w-20 y-20 rounded-full' />
-                <h1 className="font-bold text-gray-200 text-[15px] ml-3">ADMIN</h1>
-                <i
-                  className="bi bi-x-lg text-red-500 cursor-pointer ml-28"
-                  onClick={openSidebar}
-                ></i>
+              <div className='flex justify-center'>
+                <div className="p-2.5 mt-1 flex items-center">
+                  <img src='https://ngaxtqtjphtkyssalygr.supabase.co/storage/v1/object/public/images/unique_store_logo.png' alt="no-image" className='w-20 y-20 rounded-full' />
+                  <h1 className="font-bold text-gray-200 text-[15px] ml-3">ADMIN</h1>
+                  <i
+                    className="bi bi-x-lg text-red-500 cursor-pointer ml-28 md:hidden"
+                    onClick={openSidebar}
+                  ></i>
+                </div>
               </div>
               <div class="my-2 bg-gray-600 h-[1px]"></div>
             </div>
@@ -69,13 +71,15 @@ const AdminHome = () => {
             <div
               className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white"
               onClick={logout}>
-              <i className="bi bi-box-arrow-in-right text-2xl"></i>
-              <span className=" text-lg  ml-4 text-gray-200 font-bold">LOGOUT</span>
+              <div>
+                <i className="bi bi-box-arrow-in-right text-2xl"></i>
+                <span className=" text-lg  ml-4 text-gray-200 font-bold">LOGOUT</span>
+              </div>
             </div>
           </div>
         </div>
         <div className='w-full h-20 bg-white shadow-sm'>
-          
+
         </div>
       </div>
     </>
