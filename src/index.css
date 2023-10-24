@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.sidebar {
+    transition-timing-function: ease-in-out;
+    transition-duration: 0.3s;
+    /* display: none; */
+}
+
+.transformed-state {
+    width: 0px;
+    height: 0px;
+    transition: 0.3s;
+    overflow-y: hidden;
+    display: none;
+}
