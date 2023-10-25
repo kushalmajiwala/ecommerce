@@ -7,6 +7,24 @@ const AdminHome = () => {
 
   const navigate = useNavigate();
 
+  const [mode, setMode] = useState("light");
+  const [backColor, setBackColor] = useState("bg-gray-100");
+  const [navColor, setNavColor] = useState("bg-white");
+
+
+  const changeMode = () => {
+    if (mode == "light") {
+      setMode("dark");
+      setBackColor("bg-gray-900");
+      setNavColor("bg-gray-700");
+    }
+    else {
+      setMode("light");
+      setBackColor("bg-gray-100");
+      setNavColor("bg-white");
+    }
+  }
+
   const logout = () => {
     localStorage.clear();
     navigate("/admin");
@@ -43,16 +61,16 @@ const AdminHome = () => {
       </div> */}
 
 
-      <div className=' bg-gray-300 w-screen h-screen'>
+      <div className={`${backColor} w-screen h-screen`}>
         <div>
           <span
             className="absolute text-white text-4xl top-5 left-4 cursor-pointer"
             onClick={openSidebar}
           >
-            <i className="bi bi-list px-2 bg-gray-900 rounded-md"></i>
+            <i className="bi bi-list px-2 bg-gray-800 rounded-md"></i>
           </span>
           <div
-            className="sidebar fixed top-0 bottom-0 lg:left-0 p-2 w-[300px] md:w-1/4 overflow-y-auto text-center bg-gray-900"
+            className="sidebar fixed top-0 bottom-0 lg:left-0 p-2 w-[300px]  overflow-y-auto text-center bg-gray-800"
           >
             <div className="text-gray-100 text-xl">
               <div className='flex justify-center'>
@@ -65,7 +83,7 @@ const AdminHome = () => {
                   ></i>
                 </div>
               </div>
-              <div class="my-2 bg-gray-600 h-[1px]"></div>
+              {/* <div class="my-2 bg-gray-600 h-[1px]"></div> */}
             </div>
             {/* <div class="my-4 bg-gray-600 h-[1px]"></div> */}
             <div
@@ -73,13 +91,21 @@ const AdminHome = () => {
               onClick={logout}>
               <div>
                 <i className="bi bi-box-arrow-in-right text-2xl"></i>
-                <span className=" text-lg  ml-4 text-gray-200 font-bold">LOGOUT</span>
+                <span className=" text-lg ml-4 text-gray-200 font-bold">LOGOUT</span>
               </div>
             </div>
           </div>
         </div>
-        <div className='w-full h-20 bg-white shadow-sm'>
-
+        <div className={`w-full h-[90px] ${navColor} shadow-sm pl-[300px]`}>
+          <div>
+            <div className='flex justify-end h-[90px] items-center pr-5'>
+              {
+                mode == "dark" 
+                  ? <p className='text-white w-12 flex justify-center h-10 items-center cursor-pointer rounded text-lg shadow-lg bg-slate-900' onClick={changeMode}><i className="bi bi-brightness-high-fill"></i></p>
+                  : <p className='text-white w-12 flex justify-center h-10 items-center cursor-pointer rounded text-lg shadow-lg bg-slate-900' onClick={changeMode}><i className="bi bi-moon-fill"></i></p>
+              }
+            </div>
+          </div>
         </div>
       </div>
     </>
