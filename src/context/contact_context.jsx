@@ -5,11 +5,12 @@ const ContactContext = createContext();
 
 const ContactProvider = ({ children }) => {
 
-    const addContact = async (m, e) => {
+    const addContact = async (m, e, u) => {
 
         const contact_details = {
             message: m,
-            email: e
+            email: e,
+            username: u
         }
         const { data, error } = await supabase
             .from('contact_details')

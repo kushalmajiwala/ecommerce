@@ -11,7 +11,7 @@ const Contact = () => {
 
     const submitContact = (message) => {
         if (isAuthenticated && message !== "") {
-            addContact(message, user.email);
+            addContact(message, user.email, user.name);
             setContactSubmission(true);
         }
     }
