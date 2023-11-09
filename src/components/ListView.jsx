@@ -21,7 +21,7 @@ const ListView = ({ products }) => {
             products.map((curElem, index) => {
               const { id, name, image, price, description, category } = curElem;
               return (
-                <div key={index} className='bg-white w-full p-2 hidden md:flex md:justify-center md:px-5 md:pt-5 pb-3 border-2 border-gray-100 mt-4'>
+                <div key={index} className='bg-white w-11/12 p-2 hidden md:flex md:justify-center md:ml-3 md:px-5 md:pt-5 pb-3 border-2 border-gray-100 mt-4'>
                   <figure className='relative md:w-1/2 flex items-center px-2 pt-2'>
                     <img src={image} alt={name} className='w-60 h-40' />
                   </figure>

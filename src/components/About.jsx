@@ -5,7 +5,7 @@ const About = () => {
 
     const data = {
         name: 'UNIQUE ECOMMERCE',
-        image_url: 'https://ivabqohtumjadxnipnsa.supabase.co/storage/v1/object/public/images/shopping_image_about.jpg'
+        image_url: 'https://ngaxtqtjphtkyssalygr.supabase.co/storage/v1/object/public/images/shopping_image_about.jpg'
     }
 
     return (

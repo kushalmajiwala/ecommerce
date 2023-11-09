@@ -70,7 +70,7 @@ const AdminHome = () => {
             <i className="bi bi-list px-2 bg-gray-800 rounded-md"></i>
           </span>
           <div
-            className="sidebar fixed top-0 bottom-0 lg:left-0 p-2 w-[300px]  overflow-y-auto text-center bg-gray-800"
+            className="sidebar z-10 fixed top-0 bottom-0 lg:left-0 p-2 w-[300px]  overflow-y-auto text-center bg-gray-800"
           >
             <div className="text-gray-100 text-xl">
               <div className='flex justify-center'>
@@ -104,6 +104,11 @@ const AdminHome = () => {
                   ? <p className='text-white w-12 flex justify-center h-10 items-center cursor-pointer rounded text-lg shadow-lg bg-slate-900' onClick={changeMode}><i className="bi bi-brightness-high-fill"></i></p>
                   : <p className='text-white w-12 flex justify-center h-10 items-center cursor-pointer rounded text-lg shadow-lg bg-slate-900' onClick={changeMode}><i className="bi bi-moon-fill"></i></p>
               }
+            </div>
+            <div className='absolute left-1 md:left-auto'>
+              <div className='w-10 h-10 bg-white ml-10 mt-10'>
+
+              </div>
             </div>
           </div>
         </div>
