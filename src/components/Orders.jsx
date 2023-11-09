@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom'
 import { useOrderContext } from '../context/order_context';
 import { useAuth0 } from "@auth0/auth0-react";
 import OrderItem from './OrderItem';
+import { useEffect } from 'react';
 
 const Orders = () => {
     const { order, total_order } = useOrderContext();

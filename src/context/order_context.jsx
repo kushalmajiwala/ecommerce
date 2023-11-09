@@ -26,10 +26,10 @@ const OrderProvider = ({ children }) => {
     }
 
     const addOrderData = async (id, email, placed_date, placed_address, item_image, item_price, quantity, name, description, order_status) => {
-        let actual_id = id.slice(0, -7);
+        // let actual_id = id.slice(0, -7);
         if (isAuthenticated) {
             const insert_data = {
-                id: actual_id,
+                id: id,
                 email: email,
                 placed_date: placed_date,
                 placed_address: placed_address,
@@ -49,11 +49,11 @@ const OrderProvider = ({ children }) => {
         }
     }
 
-    const cancelOrder = async (uniqueid) => {
+    const cancelOrder = async (orderid) => {
         const { error } = await supabase
             .from('orders')
             .delete()
-            .eq('uniqueid', uniqueid)
+            .eq('orderid', orderid)
         if(error) console.log(error);
         getAllOrderData();
     }

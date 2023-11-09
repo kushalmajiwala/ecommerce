@@ -44,7 +44,7 @@ const CartProvider = ({ children }) => {
     const addToCart = async (id, color, amount, product) => {
         if (isAuthenticated) {
             const insert_data = {
-                id: id + color,
+                id: id,
                 email: user.email,
                 amount: amount,
                 color: color,
@@ -66,7 +66,7 @@ const CartProvider = ({ children }) => {
         const { error } = await supabase
             .from('cart')
             .delete()
-            .eq('uniqueid', id);
+            .eq('cartid', id);
         if (error) console.log(error);
         getAllCartData();
     }
@@ -84,7 +84,7 @@ const CartProvider = ({ children }) => {
             const { error } = await supabase
                 .from('cart')
                 .update({ amount: amount + 1 })
-                .eq('uniqueid', id);
+                .eq('cartid', id);
             if (error) console.log(error);
             getAllCartData();
         }
@@ -94,7 +94,7 @@ const CartProvider = ({ children }) => {
             const { error } = await supabase
                 .from('cart')
                 .update({ amount: amount - 1 })
-                .eq('uniqueid', id);
+                .eq('cartid', id);
             if (error) console.log(error);
             getAllCartData();
         }
@@ -122,13 +122,13 @@ const CartProvider = ({ children }) => {
                 .eq("email", e)
             if (err) console.log(err);
         }
-        else {
-            console.log(e);
-            const { error } = await supabase
-                .from('user_details')
-                .insert(insert_data)
-            if (error) console.log(error);
-        }
+        // else {
+        //     console.log(e);
+        //     const { error } = await supabase
+        //         .from('user_details')
+        //         .insert(insert_data)
+        //     if (error) console.log(error);
+        // }
     }
 
     const addUserOnFirstLogin = async (e, a, p) => {
@@ -144,18 +144,8 @@ const CartProvider = ({ children }) => {
             .eq("email", e)
 
         var data_obj = JSON.stringify(data);
-        if (data.length > 0 && (data_obj.address === "" || data_obj.payment_method === "")) {
-            console.log(data);
-            const { err } = await supabase
-                .from('user_details')
-                .update({
-                    address: a,
-                    payment_method: p
-                })
-                .eq("email", e)
-            if (err) console.log(err);
-        }
-        else {
+        console.log(data_obj);
+        if(data.length === 0){
             console.log(e);
             const { error } = await supabase
                 .from('user_details')

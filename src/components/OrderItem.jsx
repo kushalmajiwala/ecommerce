@@ -4,12 +4,11 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { NavLink } from 'react-router-dom';
 import { Button } from 'primereact/button';
 import { useOrderContext } from '../context/order_context';
-import { useEffect } from 'react';
 import { useState } from 'react';
 import { Dialog } from 'primereact/dialog';
 import { useContactContext } from '../context/contact_context';
 
-const OrderItem = ({ uniqueid, id, placed_date, placed_address, item_image, item_price, quantity, name, description, order_status }) => {
+const OrderItem = ({ orderid, id, placed_date, placed_address, item_image, item_price, quantity, name, description, order_status }) => {
     const { isAuthenticated, user } = useAuth0();
     const { cancelOrder } = useOrderContext();
     const { addFeedback } = useContactContext();
@@ -38,7 +37,7 @@ const OrderItem = ({ uniqueid, id, placed_date, placed_address, item_image, item
     }
 
     const completeCancellation = () => {
-        cancelOrder(uniqueid);
+        cancelOrder(orderid);
         setConfirmDelete(false);
     }
 
@@ -67,8 +66,7 @@ const OrderItem = ({ uniqueid, id, placed_date, placed_address, item_image, item
     }
 
     const changeColor = (num) => {
-        if(num == 0)
-        {
+        if (num == 0) {
             setStarColor1("text-gray-300");
             setStarColor2("text-gray-300");
             setStarColor3("text-gray-300");
@@ -134,9 +132,16 @@ const OrderItem = ({ uniqueid, id, placed_date, placed_address, item_image, item
                         <div className=''>
                             <p className='text-sm'>ORDER PLACED <br />{placed_date}</p>
                         </div>
-                        <div className='hidden md:block'>
-                            <p>Expected Delivery <br />{delivery_date}</p>
-                        </div>
+                        {
+                            order_status == "remaining" ? 
+                            <div className='hidden md:block'>
+                                <p><span className=' text-orange-600'>Expected Delivery</span> <br />{delivery_date}</p>
+                            </div>
+                            : 
+                            <div className='hidden md:block'>
+                                <p><span className='text-green-600'>Delivered On</span> <br />{delivery_date}</p>
+                            </div>
+                        }
                         <div>
                             <p className='text-sm'>TOTAL <br /><FormatPrice price={item_price} /></p>
                         </div>
@@ -232,7 +237,7 @@ const OrderItem = ({ uniqueid, id, placed_date, placed_address, item_image, item
                     </div>
                     <div className='mt-5'>
                         <p className='font-bold text-lg text-orange-700'>2. Write Message</p>
-                        <textarea className='border-2 ml-5 w-5/6 md:w-11/12 h-36 pl-2' value={feedbackMessage} onChange={(e) => setFeedbackMessage(e.target.value)}></textarea>
+                        <textarea className='border-2 ml-5 w-5/6 md:w-11/12 h-36 pl-2' value={feedbackMessage} placeholder="Give Message Here" onChange={(e) => setFeedbackMessage(e.target.value)}></textarea>
                     </div>
                 </Dialog>
                 <Dialog visible={errorFeedback} draggable={false} className="w-11/12 md:w-1/3" onHide={() => setErrorFeedback(false)}>
@@ -240,7 +245,7 @@ const OrderItem = ({ uniqueid, id, placed_date, placed_address, item_image, item
                         <div className='text-center'>
                             <i className="bi bi-x-circle text-7xl text-red-500"></i>
                             <p className="font-bold text-lg mt-4">
-                                Please Give Above Required Details
+                                Please Fill Required Details
                             </p>
                         </div>
                     </div>
