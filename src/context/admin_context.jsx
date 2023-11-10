@@ -22,8 +22,45 @@ const AdminProvider = ({ children }) => {
         return data;
     }
 
+    const getTotalUsers = async () => {
+
+        let { data, error } = await supabase
+            .from('user_details')
+            .select('*')
+
+        if(error) console.log(error);
+        return data.length;
+    }
+
+    const getTotalProducts = async () => {
+        let { data, error } = await supabase
+            .from('products')
+            .select('*')
+
+        if(error) console.log(error);
+        return data.length;
+    }
+
+    const getTotalCarts = async () => {
+        let { data, error } = await supabase
+            .from('cart')
+            .select('*')
+
+        if(error) console.log(error);
+        return data.length;
+    }
+
+    const getTotalOrders = async () => {
+        let { data, error } = await supabase
+            .from('orders')
+            .select('*')
+
+        if(error) console.log(error);
+        return data.length;
+    }
+
     return (
-        <AdminContext.Provider value={{ ...state, getAdminDetailsByUsername }}>
+        <AdminContext.Provider value={{ ...state, getAdminDetailsByUsername, getTotalUsers, getTotalProducts, getTotalCarts, getTotalOrders }}>
             {children}
         </AdminContext.Provider>
     )
