@@ -72,7 +72,7 @@ const EditPassword = ({ navcolor, mode }) => {
                   <label htmlFor="value" className='text-black'>Old Passwrord</label><br />
                   <input type="password" className='w-64 md:w-96 h-10 bg-gray-200 pl-3 rounded-md' value={oldPassword} onChange={(e) => setOldPassword(e.target.value)} /><br /><br />
 
-                  <label htmlFor="value" className='text-black'>Enter New Password</label><br />
+                  <label htmlFor="value" className='text-black'>New Password</label><br />
                   <input type="password" className='w-64 md:w-96 h-10 bg-gray-200 pl-3 rounded-md' value={newPassword} onChange={(e) => setNewPassword(e.target.value)} /><br /><br />
 
                   <label htmlFor="value" className='text-black'>Confirm New Password</label><br />
@@ -85,7 +85,7 @@ const EditPassword = ({ navcolor, mode }) => {
                   <label htmlFor="value" className='text-white'>Old Passwrord</label><br />
                   <input type="password" className='w-64 md:w-96 h-10 bg-gray-200 pl-3 rounded-md' value={oldPassword} onChange={(e) => setOldPassword(e.target.value)} /><br /><br />
 
-                  <label htmlFor="value" className='text-white'>Enter New Password</label><br />
+                  <label htmlFor="value" className='text-white'>New Password</label><br />
                   <input type="password" className='w-64 md:w-96 h-10 bg-gray-200 pl-3 rounded-md' value={newPassword} onChange={(e) => setNewPassword(e.target.value)} /><br /><br />
 
                   <label htmlFor="value" className='text-white'>Confirm New Password</label><br />
