@@ -28,7 +28,7 @@ const AdminProvider = ({ children }) => {
             .from('user_details')
             .select('*')
 
-        if(error) console.log(error);
+        if (error) console.log(error);
         return data.length;
     }
 
@@ -37,7 +37,7 @@ const AdminProvider = ({ children }) => {
             .from('products')
             .select('*')
 
-        if(error) console.log(error);
+        if (error) console.log(error);
         return data.length;
     }
 
@@ -46,7 +46,7 @@ const AdminProvider = ({ children }) => {
             .from('cart')
             .select('*')
 
-        if(error) console.log(error);
+        if (error) console.log(error);
         return data.length;
     }
 
@@ -55,12 +55,21 @@ const AdminProvider = ({ children }) => {
             .from('orders')
             .select('*')
 
-        if(error) console.log(error);
+        if (error) console.log(error);
         return data.length;
     }
 
+    const updatePassword = async (username, newPassword) => {
+        const { data, error } = await supabase
+            .from('admin_details')
+            .update({ password: newPassword })
+            .eq('username', username)
+            .select()
+        if (error) console.log(error);
+    }
+
     return (
-        <AdminContext.Provider value={{ ...state, getAdminDetailsByUsername, getTotalUsers, getTotalProducts, getTotalCarts, getTotalOrders }}>
+        <AdminContext.Provider value={{ ...state, getAdminDetailsByUsername, getTotalUsers, getTotalProducts, getTotalCarts, getTotalOrders, updatePassword }}>
             {children}
         </AdminContext.Provider>
     )

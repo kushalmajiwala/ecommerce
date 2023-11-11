@@ -9,6 +9,7 @@ import ViewProducts from './ViewProducts';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ViewOrders from './ViewOrders';
 import EditPassword from './EditPassword';
+import { Tooltip } from 'primereact/tooltip';
 
 const AdminHome = () => {
 
@@ -123,16 +124,16 @@ const AdminHome = () => {
       </div> */}
 
 
-      <div className={`${backColor} w-full h-full pb-24`}>
+      <div className={`${backColor} w-full h-full pb-48`}>
         <div>
           <span
-            className="absolute text-white text-4xl top-5 left-4 cursor-pointer"
+            className="absolute text-white text-4xl top-6 left-4 cursor-pointer"
             onClick={openSidebar}
           >
             <i className="bi bi-list px-2 bg-gray-800 rounded-md"></i>
           </span>
           <div
-            className="md:hidden sidebar z-10 fixed top-0 bottom-0 lg:left-0 p-2 w-[300px]  overflow-y-auto text-center bg-gray-800"
+            className="md:hidden sidebar z-10 fixed top-0 bottom-0 lg:left-0 p-2 w-[300px] overflow-y-auto text-center bg-gray-800"
           >
             <div className="text-gray-100 text-xl">
               <div className='flex justify-center'>
@@ -281,14 +282,21 @@ const AdminHome = () => {
             </div>
           </div>
         </div>
-        <div className={`w-full h-[90px] ${navColor} shadow-sm pl-[300px]`}>
-          <div>
+        <div className={`w-full h-[90px] ${navColor} shadow-sm`}>
+          <div className=''>
             <div className='flex justify-end h-[90px] items-center pr-5'>
+              <div className='hidden md:flex items-center'>
+                <button className='ml-5 bg-blue-500 hover:bg-blue-600 px-4 py-2 text-white font-medium shadow-md rounded-xl mr-5 edit-tooltip' data-pr-tooltip="EDIT PASSWORD" data-pr-position="bottom" onClick={redirectEditPasswordBig}><i className="bi bi-pencil-square"></i></button>
+                <Tooltip target=".edit-tooltip" />
+              </div>
               {
                 mode == "dark"
-                  ? <p className='text-white w-12 flex justify-center h-10 items-center cursor-pointer rounded text-lg shadow-lg bg-slate-900' onClick={changeMode}><i className="bi bi-brightness-high-fill"></i></p>
-                  : <p className='text-white w-12 flex justify-center h-10 items-center cursor-pointer rounded text-lg shadow-lg bg-slate-900' onClick={changeMode}><i className="bi bi-moon-fill"></i></p>
+                  ? <p className='text-white w-12 flex justify-center h-10 mt-[16px] items-center cursor-pointer rounded text-lg shadow-lg bg-slate-900' onClick={changeMode}><i className="bi bi-brightness-high-fill"></i></p>
+                  : <p className='text-white w-12 flex justify-center h-10 mt-[16px] items-center cursor-pointer rounded text-lg shadow-lg bg-slate-900' onClick={changeMode}><i className="bi bi-moon-fill"></i></p>
               }
+              <div className='flex items-center'>
+                <button className='ml-5 bg-red-500 hover:bg-red-600 px-4 py-2 text-white font-medium shadow-md rounded-xl' onClick={logout}><i className="bi bi-box-arrow-right"></i>&nbsp;&nbsp;LOGOUT</button>
+              </div>
             </div>
           </div>
           {/* <div className='hidden md:block'>
@@ -308,7 +316,7 @@ const AdminHome = () => {
             <Route path='addproduct' element={<AddProduct />}></Route>
             <Route path='viewproducts' element={<ViewProducts />}></Route>
             <Route path='vieworders' element={<ViewOrders />}></Route>
-            <Route path='editpassword' element={<EditPassword />}></Route>
+            <Route path='editpassword' element={<EditPassword navcolor={navColor} mode={mode} />}></Route>
             <Route path='contactmessage' element={<ContactMessage />}></Route>
           </Routes>
         </div>
