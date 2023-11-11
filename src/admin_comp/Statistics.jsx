@@ -68,7 +68,7 @@ const Statistics = ({ navcolor, mode }) => {
         <>
             <div className='w-full'>
                 <div className='md:flex justify-around pb-5 pl-4 md:pl-0 w-full'>
-                    <div className={`mt-4 ml-2 ${navcolor} w-11/12 md:w-52 h-40 shadow-md rounded-md pt-4 pl-3`}>
+                    <div className={`mt-4 ml-2 ${navcolor} w-11/12 md:w-[17vw] h-[165px] shadow-md rounded-md pt-4 pl-3`}>
                         <span className='py-3 ml-3 shadow-sm px-4 rounded-full bg-gray-100'><i className="bi bi-people-fill text-blue-600 text-xl"></i></span>
                         {
                             mode == "light" ?
@@ -87,7 +87,7 @@ const Statistics = ({ navcolor, mode }) => {
                                 </div>
                         }
                     </div>
-                    <div className={`mt-4 ml-2 ${navcolor} w-11/12 md:w-52 h-40 shadow-md rounded-md pt-4 pl-3`}>
+                    <div className={`mt-4 ml-2 ${navcolor} w-11/12 md:w-[17vw] h-[165px] shadow-md rounded-md pt-4 pl-3`}>
                         <span className='py-3 ml-3 shadow-sm px-4 rounded-full bg-gray-100'><i className="bi bi-box-fill text-blue-600 text-xl"></i></span>
                         {
                             mode == "light" ?
@@ -106,7 +106,7 @@ const Statistics = ({ navcolor, mode }) => {
                                 </div>
                         }
                     </div>
-                    <div className={`mt-4 ml-2 ${navcolor} w-11/12 md:w-52 h-40 shadow-md rounded-md pt-4 pl-3`}>
+                    <div className={`mt-4 ml-2 ${navcolor} w-11/12 md:w-[17vw] h-[165px] shadow-md rounded-md pt-4 pl-3`}>
                         <span className='py-3 ml-3 shadow-sm px-4 rounded-full bg-gray-100'><i className="bi bi-cart-fill text-blue-600 text-xl"></i></span>
                         {
                             mode == "light" ?
@@ -125,7 +125,7 @@ const Statistics = ({ navcolor, mode }) => {
                                 </div>
                         }
                     </div>
-                    <div className={`mt-4 ml-2 ${navcolor} w-11/12 md:w-52 h-40 shadow-md rounded-md pt-4 pl-3`}>
+                    <div className={`mt-4 ml-2 ${navcolor} w-11/12 md:w-[17vw] h-[165px] shadow-md rounded-md pt-4 pl-3`}>
                         <span className='py-3 ml-3 shadow-sm px-4 rounded-full bg-gray-100'><i className="bi bi-bag-fill text-blue-600 text-xl"></i></span>
 
                         {
@@ -146,11 +146,11 @@ const Statistics = ({ navcolor, mode }) => {
                         }
                     </div>
                 </div>
-                <div className='hidden md:flex justify-around'>
-                    <div className={`md:w-96 md:h-72 pb-3 ${navcolor} p-2 shadow-md rounded-md flex justify-center`}>
+                <div className='hidden md:flex justify-evenly'>
+                    <div className={`md:w-1/3 md:h-[45vh] pb-3 ${navcolor} p-2 shadow-md rounded-md flex justify-center`}>
                         <Pie data={data} />
                     </div>
-                    <div className={`md:w-96 md:h-72 pb-3 ${navcolor} p-2 shadow-md rounded-md flex justify-center`}>
+                    <div className={`md:w-1/3 md:h-[45vh] pb-3 ${navcolor} p-2 shadow-md rounded-md flex justify-center`}>
                         <Doughnut data={data} />
                     </div>
                 </div>

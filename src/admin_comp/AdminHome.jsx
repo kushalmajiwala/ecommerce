@@ -7,13 +7,15 @@ import AddProduct from './AddProduct';
 import ContactMessage from './ContactMessage';
 import ViewProducts from './ViewProducts';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import ViewOrders from './ViewOrders';
+import EditPassword from './EditPassword';
 
 const AdminHome = () => {
 
   const navigate = useNavigate();
 
   const [mode, setMode] = useState("light");
-  const [backColor, setBackColor] = useState("bg-gray-100");
+  const [backColor, setBackColor] = useState("bg-indigo-50");
   const [navColor, setNavColor] = useState("bg-white");
 
 
@@ -25,7 +27,7 @@ const AdminHome = () => {
     }
     else {
       setMode("light");
-      setBackColor("bg-gray-100");
+      setBackColor("bg-indigo-50");
       setNavColor("bg-white");
     }
   }
@@ -50,10 +52,22 @@ const AdminHome = () => {
     openSidebar();
   }
 
+  const redirectViewOrders = () => {
+    navigate("vieworders");
+    openSidebar();
+  }
+
+  const redirectEditPassword = () => {
+    navigate("editpassword");
+    openSidebar();
+  }
+
   const redirectContectMessage = () => {
     navigate("contactmessage");
     openSidebar();
   }
+
+  // big screen routing functions
   const redirectStatisticsBig = () => {
     navigate("");
   }
@@ -64,6 +78,14 @@ const AdminHome = () => {
 
   const redirectViewProductsBig = () => {
     navigate("viewproducts");
+  }
+
+  const redirectViewOrdersBig = () => {
+    navigate("vieworders");
+  }
+
+  const redirectEditPasswordBig = () => {
+    navigate("editpassword");
   }
 
   const redirectContectMessageBig = () => {
@@ -101,7 +123,7 @@ const AdminHome = () => {
       </div> */}
 
 
-      <div className={`${backColor} w-screen h-full md:h-screen`}>
+      <div className={`${backColor} w-full h-full pb-24`}>
         <div>
           <span
             className="absolute text-white text-4xl top-5 left-4 cursor-pointer"
@@ -152,6 +174,22 @@ const AdminHome = () => {
             </div>
             <div
               className="py-2.5 mt-3 flex px-3 rounded-md duration-300 cursor-pointer hover:bg-blue-600 text-white"
+              onClick={redirectViewOrders}>
+              <div>
+                <i className="bi bi-eye-fill text-2xl"></i>
+                <span className="text-lg ml-4 text-gray-200">VIEW ORDERS</span>
+              </div>
+            </div>
+            <div
+              className="py-2.5 mt-3 flex px-3 rounded-md duration-300 cursor-pointer hover:bg-blue-600 text-white"
+              onClick={redirectEditPassword}>
+              <div>
+                <i className="bi bi-pencil-square text-2xl"></i>
+                <span className="text-lg ml-4 text-gray-200">EDIT PASSWORD</span>
+              </div>
+            </div>
+            <div
+              className="py-2.5 mt-3 flex px-3 rounded-md duration-300 cursor-pointer hover:bg-blue-600 text-white"
               onClick={redirectContectMessage}>
               <div>
                 <i className="bi bi-person-rolodex text-2xl"></i>
@@ -169,7 +207,7 @@ const AdminHome = () => {
           </div>
           {/* big mode sidebar */}
           <div
-            className="hidden md:block sidebar z-10 fixed top-0 bottom-0 lg:left-0 p-2 w-[300px]  overflow-y-auto text-center bg-gray-800"
+            className="hidden md:block sidebar z-10 fixed top-0 bottom-0 lg:left-0 p-2 w-[45vh] text-center bg-gray-800"
           >
             <div className="text-gray-100 text-xl">
               <div className='flex justify-center'>
@@ -211,6 +249,22 @@ const AdminHome = () => {
             </div>
             <div
               className="py-2.5 mt-3 flex px-3 rounded-md duration-300 cursor-pointer hover:bg-blue-600 text-white"
+              onClick={redirectViewOrdersBig}>
+              <div>
+                <i className="bi bi-eye-fill text-2xl"></i>
+                <span className="text-lg ml-4 text-gray-200">VIEW ORDERS</span>
+              </div>
+            </div>
+            <div
+              className="py-2.5 mt-3 flex px-3 rounded-md duration-300 cursor-pointer hover:bg-blue-600 text-white"
+              onClick={redirectEditPasswordBig}>
+              <div>
+                <i className="bi bi-pencil-square text-2xl"></i>
+                <span className="text-lg ml-4 text-gray-200">EDIT PASSWORD</span>
+              </div>
+            </div>
+            <div
+              className="py-2.5 mt-3 flex px-3 rounded-md duration-300 cursor-pointer hover:bg-blue-600 text-white"
               onClick={redirectContectMessageBig}>
               <div>
                 <i className="bi bi-person-rolodex text-2xl"></i>
@@ -237,20 +291,24 @@ const AdminHome = () => {
               }
             </div>
           </div>
-          <div className='hidden md:block'>
+          {/* <div className='hidden md:block'>
             <Routes>
               <Route path='/' element={<Statistics navcolor={navColor} mode={mode} />}></Route>
               <Route path='addproduct' element={<AddProduct />}></Route>
               <Route path='viewproducts' element={<ViewProducts />}></Route>
+              <Route path='vieworders' element={<ViewOrders />}></Route>
+              <Route path='editpassword' element={<EditPassword />}></Route>
               <Route path='contactmessage' element={<ContactMessage />}></Route>
             </Routes>
-          </div>
+          </div> */}
         </div>
-        <div className='md:hidden'>
+        <div className='md:ml-[45vh]'>
           <Routes>
             <Route path='/' element={<Statistics navcolor={navColor} mode={mode} />}></Route>
             <Route path='addproduct' element={<AddProduct />}></Route>
             <Route path='viewproducts' element={<ViewProducts />}></Route>
+            <Route path='vieworders' element={<ViewOrders />}></Route>
+            <Route path='editpassword' element={<EditPassword />}></Route>
             <Route path='contactmessage' element={<ContactMessage />}></Route>
           </Routes>
         </div>
