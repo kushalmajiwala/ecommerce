@@ -11,7 +11,7 @@ var salt = "$2a$10$O2mB4NXbEIb9PgFHCEzj0e";
 
 const AdminLogin = () => {
 
-    const { getAdminDetailsByUsername, username, password, email } = useAdminContext();
+    const { getAdminDetailsByUsername } = useAdminContext();
 
     const [uname, setUname] = useState("");
     const [upass, setUpass] = useState("");

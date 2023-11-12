@@ -124,7 +124,7 @@ const AdminHome = () => {
       </div> */}
 
 
-      <div className={`${backColor} w-full h-full pb-48`}>
+      <div className={`${backColor} w-full h-full pb-[100vh]`}>
         <div>
           <span
             className="absolute text-white text-4xl top-6 left-4 cursor-pointer"
@@ -317,7 +317,7 @@ const AdminHome = () => {
             <Route path='viewproducts' element={<ViewProducts />}></Route>
             <Route path='vieworders' element={<ViewOrders />}></Route>
             <Route path='editpassword' element={<EditPassword navcolor={navColor} mode={mode} />}></Route>
-            <Route path='contactmessage' element={<ContactMessage />}></Route>
+            <Route path='contactmessage' element={<ContactMessage navcolor={navColor} mode={mode} />}></Route>
           </Routes>
         </div>
       </div>
