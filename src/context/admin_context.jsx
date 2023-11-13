@@ -12,8 +12,8 @@ const AdminProvider = ({ children }) => {
     };
 
     const initialContactData = {
-       contact: [],
-       total_contact: 0
+        contact: [],
+        total_contact: 0
     }
 
     const [state, setState] = useState(initialState);
@@ -79,11 +79,20 @@ const AdminProvider = ({ children }) => {
         let { data, error } = await supabase
             .from('contact_details')
             .select('*')
-        if(error) console.log(error);
-        if(data)
-        {
-            setContactData({...contactData, contact: data, total_contact: data.length});
+        if (error) console.log(error);
+        if (data) {
+            setContactData({ ...contactData, contact: data, total_contact: data.length });
         }
+    }
+
+    const removeContactMessage = async (contactid) => {
+
+        const { error } = await supabase
+            .from('contact_details')
+            .delete()
+            .eq('contact_id', contactid)
+            if(error) console.log(error);
+            getContactDetails();
     }
 
     useEffect(() => {
@@ -91,7 +100,7 @@ const AdminProvider = ({ children }) => {
     }, [])
 
     return (
-        <AdminContext.Provider value={{ ...state, ...contactData, getAdminDetailsByUsername, getTotalUsers, getTotalProducts, getTotalCarts, getTotalOrders, updatePassword, getContactDetails }}>
+        <AdminContext.Provider value={{ ...state, ...contactData, getAdminDetailsByUsername, getTotalUsers, getTotalProducts, getTotalCarts, getTotalOrders, updatePassword, getContactDetails, removeContactMessage }}>
             {children}
         </AdminContext.Provider>
     )
