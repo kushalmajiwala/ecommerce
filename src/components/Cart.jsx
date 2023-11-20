@@ -68,6 +68,10 @@ const Cart = () => {
         if (address === "") {
             setEmptyAddress(true);
         }
+        else if(address.length < 25)
+        {
+            setSmallAddress(true);
+        }
         else if (payment_method === "cash") {
             cart.map((curElem) => {
                 addOrderData(curElem.id, user.email, new Date().toLocaleDateString(), address, curElem.image, curElem.price, curElem.amount, curElem.name, curElem.description, "remaining");

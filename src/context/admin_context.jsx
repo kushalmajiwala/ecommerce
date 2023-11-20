@@ -16,8 +16,14 @@ const AdminProvider = ({ children }) => {
         total_contact: 0
     }
 
+    const initialOrderData = {
+        order: [],
+        total_order: 0,
+    }
+
     const [state, setState] = useState(initialState);
     const [contactData, setContactData] = useState(initialContactData);
+    const [orderData, setOrderData] = useState(initialOrderData);
 
     const getAdminDetailsByUsername = async (username) => {
         let { data } = await supabase.from('admin_details').select("*").eq("username", username);
@@ -95,12 +101,21 @@ const AdminProvider = ({ children }) => {
             getContactDetails();
     }
 
+    const getAllOrderDetails = async () => {
+        let { data } = await supabase.from('orders').select("*");
+        console.log(data);
+        if (data) {
+            setOrderData({ ...orderData, order: data, total_order: data.length });
+        }
+    }
+
     useEffect(() => {
         getContactDetails();
+        getAllOrderDetails();
     }, [])
 
     return (
-        <AdminContext.Provider value={{ ...state, ...contactData, getAdminDetailsByUsername, getTotalUsers, getTotalProducts, getTotalCarts, getTotalOrders, updatePassword, getContactDetails, removeContactMessage }}>
+        <AdminContext.Provider value={{ ...state, ...contactData, ...orderData, getAdminDetailsByUsername, getTotalUsers, getTotalProducts, getTotalCarts, getTotalOrders, updatePassword, getContactDetails, removeContactMessage }}>
             {children}
         </AdminContext.Provider>
     )
