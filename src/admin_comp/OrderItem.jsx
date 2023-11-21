@@ -1,12 +1,7 @@
 import React from 'react'
 import FormatPrice from '../helpers/FormatPrice'
-import { useAuth0 } from "@auth0/auth0-react";
-import { NavLink } from 'react-router-dom';
-import { Button } from 'primereact/button';
-import { useOrderContext } from '../context/order_context';
 import { useState } from 'react';
 import { Dialog } from 'primereact/dialog';
-import { useContactContext } from '../context/contact_context';
 import ItemDetails from './ItemDetails';
 
 const OrderItem = ({ orderid, id, placed_date, email, placed_address, item_image, item_price, quantity, name, description, order_status, navcolor, mode }) => {

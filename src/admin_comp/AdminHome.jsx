@@ -352,7 +352,7 @@ const AdminHome = () => {
           <Routes>
             <Route path='/' element={<Statistics navcolor={navColor} mode={mode} />}></Route>
             <Route path='addproduct' element={<AddProduct />}></Route>
-            <Route path='viewproducts' element={<ViewProducts />}></Route>
+            <Route path='viewproducts' element={<ViewProducts navcolor={navColor} mode={mode} />}></Route>
             <Route path='vieworders' element={<ViewOrders navcolor={navColor} mode={mode} />}></Route>
             <Route path='editpassword' element={<EditPassword navcolor={navColor} mode={mode} />}></Route>
             <Route path='contactmessage' element={<ContactMessage navcolor={navColor} mode={mode} />}></Route>

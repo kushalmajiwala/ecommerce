@@ -11,18 +11,18 @@ const AddToCart = ({ product }) => {
 
     const { id, colors, stock } = product;
     const [color, setColor] = useState(colors[0]);
-    const [amount, setAmount] = useState(1);
+    const [quantity, setQuantity] = useState(1);
 
     const setDecrease = () => {
-        amount > 1 ? setAmount(amount - 1) : setAmount(1);
+        quantity > 1 ? setQuantity(quantity - 1) : setQuantity(1);
     }
     const setIncrease = () => {
-        amount < stock ? setAmount(amount + 1) : setAmount(stock);
+        quantity < stock ? setQuantity(quantity + 1) : setQuantity(stock);
     }
 
     const addToCartOuter = async () => {
         if (isAuthenticated) {
-            addToCart(id, color, amount, product);
+            addToCart(id, color, quantity, product);
         }
         else {
             loginWithRedirect();
@@ -48,7 +48,7 @@ const AddToCart = ({ product }) => {
                 </div>
             </div>
             <div className='mt-2'>
-                <CartAmountToggle amount={amount} setDecrease={setDecrease} setIncrease={setIncrease} />
+                <CartAmountToggle quantity={quantity} setDecrease={setDecrease} setIncrease={setIncrease} />
             </div>
             <div className='mt-4'>
                 <NavLink to={isAuthenticated ? "/cart" : ""} onClick={addToCartOuter} className='no-underline text-white bg-blue-600 hover:bg-blue-500 rounded-md py-2 px-4'>ADD TO CART</NavLink>

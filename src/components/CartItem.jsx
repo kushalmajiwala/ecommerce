@@ -4,7 +4,7 @@ import FormatPrice from '../helpers/FormatPrice'
 import CartAmountToggle from './CartAmountToggle'
 import { Button } from 'primereact/button';
 
-const CartItem = ({ cartid, id, email, name, image, color, price, amount, max }) => {
+const CartItem = ({ cartid, id, email, name, image, color, price, quantity, max }) => {
 
     const { removeItem, setDecrease, setIncrease, shipping_fees } = useCartContext();
 
@@ -31,13 +31,13 @@ const CartItem = ({ cartid, id, email, name, image, color, price, amount, max })
                             <div className='flex w-full justify-start items-center mt-1 md:-mt-0'>
                                 <div className='flex items-center'>
                                     <span className='w-full text-lg mr-3'>QTY :-</span>
-                                    <CartAmountToggle amount={amount} setDecrease={() => setDecrease(cartid, amount)} setIncrease={() => setIncrease(cartid, amount, max)} />
+                                    <CartAmountToggle quantity={quantity} setDecrease={() => setDecrease(cartid, quantity)} setIncrease={() => setIncrease(cartid, quantity, max)} />
                                 </div>
                             </div>
                             <div className='flex items-center w-full -mt-0'>
                                 <span className='text-lg mr-2'>SUBTOTAL :-</span>
                                 <div className='text-lg font-medium text-orange-500'>
-                                    <FormatPrice price={price * amount} />
+                                    <FormatPrice price={price * quantity} />
                                 </div>
                             </div>
                             <div className='mt-2.5'>

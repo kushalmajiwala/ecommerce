@@ -33,20 +33,20 @@ const CartProvider = ({ children }) => {
                 let ptotal = 0;
                 let titem = 0;
                 data.map((curElem) => {
-                    ptotal = ptotal + curElem.price * curElem.amount
-                    titem = titem + curElem.amount
+                    ptotal = ptotal + curElem.price * curElem.quantity
+                    titem = titem + curElem.quantity
                 })
                 setState({ ...state, cart: data, total_item: titem, total_price: ptotal });
             }
         }
     }
 
-    const addToCart = async (id, color, amount, product) => {
+    const addToCart = async (id, color, quantity, product) => {
         if (isAuthenticated) {
             const insert_data = {
                 id: id,
                 email: user.email,
-                amount: amount,
+                quantity: quantity,
                 color: color,
                 image: product.image[0].url,
                 max: product.stock,
@@ -79,21 +79,21 @@ const CartProvider = ({ children }) => {
         getAllCartData();
     }
 
-    const setIncrease = async (id, amount, max) => {
-        if (amount < max) {
+    const setIncrease = async (id, quantity, max) => {
+        if (quantity < max) {
             const { error } = await supabase
                 .from('cart')
-                .update({ amount: amount + 1 })
+                .update({ quantity: quantity + 1 })
                 .eq('cartid', id);
             if (error) console.log(error);
             getAllCartData();
         }
     }
-    const setDecrease = async (id, amount) => {
-        if (amount > 1) {
+    const setDecrease = async (id, quantity) => {
+        if (quantity > 1) {
             const { error } = await supabase
                 .from('cart')
-                .update({ amount: amount - 1 })
+                .update({ quantity: quantity - 1 })
                 .eq('cartid', id);
             if (error) console.log(error);
             getAllCartData();

@@ -18,12 +18,18 @@ const AdminProvider = ({ children }) => {
 
     const initialOrderData = {
         order: [],
-        total_order: 0,
+        total_order: 0
+    }
+
+    const initialProducts = {
+        product: [],
+        total_product: 0
     }
 
     const [state, setState] = useState(initialState);
     const [contactData, setContactData] = useState(initialContactData);
     const [orderData, setOrderData] = useState(initialOrderData);
+    const [products, setProducts] = useState(initialProducts);
 
     const getAdminDetailsByUsername = async (username) => {
         let { data } = await supabase.from('admin_details').select("*").eq("username", username);
@@ -97,8 +103,8 @@ const AdminProvider = ({ children }) => {
             .from('contact_details')
             .delete()
             .eq('contact_id', contactid)
-            if(error) console.log(error);
-            getContactDetails();
+        if (error) console.log(error);
+        getContactDetails();
     }
 
     const getAllOrderDetails = async () => {
@@ -109,13 +115,25 @@ const AdminProvider = ({ children }) => {
         }
     }
 
+    const getAllProducts = async () => {
+        let { data, error } = await supabase
+            .from('products')
+            .select('*')
+
+        if(error) console.log(error);
+        if(data) {
+            setProducts({ ...products, product: data, total_product: data.length })
+        }
+    }
+
     useEffect(() => {
         getContactDetails();
         getAllOrderDetails();
+        getAllProducts();
     }, [])
 
     return (
-        <AdminContext.Provider value={{ ...state, ...contactData, ...orderData, getAdminDetailsByUsername, getTotalUsers, getTotalProducts, getTotalCarts, getTotalOrders, updatePassword, getContactDetails, removeContactMessage }}>
+        <AdminContext.Provider value={{ ...state, ...contactData, ...orderData, ...products, getAdminDetailsByUsername, getTotalUsers, getTotalProducts, getTotalCarts, getTotalOrders, updatePassword, getContactDetails, removeContactMessage }}>
             {children}
         </AdminContext.Provider>
     )
