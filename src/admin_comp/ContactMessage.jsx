@@ -55,7 +55,7 @@ const ContactMessage = ({ navcolor, mode }) => {
             contact.map((curElem, index) => {
               return (
                 mode === "light" ?
-                  <div className='w-[90vw] md:w-[45vw] h-[20vh] mt-5 bg-white rounded-lg shadow-md' key={index}>
+                  <div className='w-[90vw] md:w-[50vw] h-[20vh] mt-5 bg-white rounded-lg shadow-md' key={index}>
                     <div className='border-b-2 w-full h-10 flex justify-between items-center pt-3'>
                       <p className='pl-5 text-xl font-bold'>{curElem.username}</p>
                       <p className='text-red-500 hover:text-red-600 text-xl pr-2'><i className="bi bi-trash3-fill cursor-pointer delete_message" data-pr-tooltip="DELETE MESSAGE" data-pr-position="right" onClick={() => openRemoveMessageDialog(curElem.contact_id)}></i></p>
@@ -69,7 +69,7 @@ const ContactMessage = ({ navcolor, mode }) => {
                     </div>
                   </div>
                   :
-                  <div className={`w-[90vw] md:w-[45vw] h-[20vh] mt-5 ${navcolor} rounded-lg shadow-md`} key={index}>
+                  <div className={`w-[90vw] md:w-[50vw] h-[20vh] mt-5 ${navcolor} rounded-lg shadow-md`} key={index}>
                     <div className='border-b-2 w-full h-10 flex justify-between items-center pt-3'>
                       <p className='pl-5 text-xl font-bold text-white'>{curElem.username}</p>
                       <p className='text-red-500 hover:text-red-600 text-xl pr-2'><i className="bi bi-trash3-fill cursor-pointer delete_message" data-pr-tooltip="DELETE MESSAGE" data-pr-position="right" onClick={() => openRemoveMessageDialog(curElem.contact_id)}></i></p>

@@ -3,16 +3,36 @@ import FormatPrice from '../helpers/FormatPrice'
 import { Dialog } from 'primereact/dialog';
 import ItemDetails from './ItemDetails';
 import { useState } from 'react';
+import { Button } from 'primereact/button';
 
 const AdminProductList = ({ products, navcolor, mode }) => {
 
   const [viewDetails, setViewDetails] = useState(false);
   const [viewDetailsId, setViewDetailsId] = useState("");
+  const [deleteProduct, setDeleteProduct] = useState(false);
+  const [deleteProductId, setDeleteProductId] = useState("");
+  const [productDeleted, setProductDeleted] = useState(false);
 
   const openViewDetailsDialog = (id) => {
     setViewDetails(true);
     setViewDetailsId(id);
   }
+
+  const openConfirmDeleteProductDialog = (id) => {
+    setDeleteProduct(true);
+    setDeleteProductId(id);
+  }
+
+  const deleteProductConfirmed = () => {
+    setProductDeleted(true);
+    setDeleteProduct(false);
+  }
+
+  const closeDeleteProductDialog = () => {
+    setDeleteProduct(false);
+    setDeleteProductId("");
+  }
+
 
   if (mode === "light") {
     return (
@@ -42,7 +62,7 @@ const AdminProductList = ({ products, navcolor, mode }) => {
                             </button>
                           </div>
                           <div className='flex justify-center md:block mt-2 md:mt-0'>
-                            <button className='px-3 py-2.5 ml-2 text-sm md:-mt-2 bg-red-500 text-white hover:text-white hover:bg-red-600'>
+                            <button className='px-3 py-2.5 ml-2 text-sm md:-mt-2 bg-red-500 text-white hover:text-white hover:bg-red-600' onClick={() => openConfirmDeleteProductDialog(id)}>
                               DELETE PRODUCT
                             </button>
                           </div>
@@ -58,6 +78,30 @@ const AdminProductList = ({ products, navcolor, mode }) => {
             <Dialog visible={viewDetails} draggable={false} className="w-11/12" onHide={() => setViewDetails(false)}>
               <div className='flex justify-center'>
                 <ItemDetails id={viewDetailsId} />
+              </div>
+            </Dialog>
+            <Dialog visible={deleteProduct} draggable={false} className="w-11/12 md:w-[37vw]" onHide={() => setDeleteProduct(false)}>
+              <div className='flex justify-center'>
+                <div className='text-center'>
+                  <i className="bi bi-exclamation-circle text-7xl text-orange-400"></i>
+                  <p className="font-bold text-lg mt-4">
+                    Are you sure you want to delete this product?
+                  </p>
+                </div>
+              </div>
+              <div className='flex justify-end'>
+                <span><Button label="YES, DELETE IT" severity="danger" className='mr-2' onClick={deleteProductConfirmed} /></span>
+                <span className='ml-3'><Button label="NO" onClick={closeDeleteProductDialog} /></span>
+              </div>
+            </Dialog>
+            <Dialog visible={productDeleted} draggable={false} className="w-11/12 md:w-1/3" onHide={() => setProductDeleted(false)}>
+              <div className='flex justify-center'>
+                <div className='text-center'>
+                  <i className="bi bi-check-circle text-7xl text-green-500"></i>
+                  <p className="font-bold text-lg mt-4">
+                    Product Deleted Successfully
+                  </p>
+                </div>
               </div>
             </Dialog>
           </div>
@@ -93,7 +137,7 @@ const AdminProductList = ({ products, navcolor, mode }) => {
                           </button>
                         </div>
                         <div className='flex justify-center md:block mt-2 md:mt-0'>
-                          <button className='px-3 py-2.5 ml-2 text-sm md:-mt-2 bg-red-500 text-white hover:text-white hover:bg-red-600'>
+                          <button className='px-3 py-2.5 ml-2 text-sm md:-mt-2 bg-red-500 text-white hover:text-white hover:bg-red-600' onClick={() => openConfirmDeleteProductDialog(id)}>
                             DELETE PRODUCT
                           </button>
                         </div>
@@ -109,6 +153,30 @@ const AdminProductList = ({ products, navcolor, mode }) => {
           <Dialog visible={viewDetails} draggable={false} className="w-11/12" onHide={() => setViewDetails(false)}>
             <div className='flex justify-center'>
               <ItemDetails id={viewDetailsId} />
+            </div>
+          </Dialog>
+          <Dialog visible={deleteProduct} draggable={false} className="w-11/12 md:w-[37vw]" onHide={() => setDeleteProduct(false)}>
+            <div className='flex justify-center'>
+              <div className='text-center'>
+                <i className="bi bi-exclamation-circle text-7xl text-orange-400"></i>
+                <p className="font-bold text-lg mt-4">
+                  Are you sure you want to delete this product?
+                </p>
+              </div>
+            </div>
+            <div className='flex justify-end'>
+              <span><Button label="YES, DELETE IT" severity="danger" className='mr-2' onClick={deleteProductConfirmed} /></span>
+              <span className='ml-3'><Button label="NO" onClick={closeDeleteProductDialog} /></span>
+            </div>
+          </Dialog>
+          <Dialog visible={productDeleted} draggable={false} className="w-11/12 md:w-1/3" onHide={() => setProductDeleted(false)}>
+            <div className='flex justify-center'>
+              <div className='text-center'>
+                <i className="bi bi-check-circle text-7xl text-green-500"></i>
+                <p className="font-bold text-lg mt-4">
+                  Product Deleted Successfully
+                </p>
+              </div>
             </div>
           </Dialog>
         </div>

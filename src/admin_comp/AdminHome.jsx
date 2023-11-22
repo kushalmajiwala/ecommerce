@@ -351,7 +351,7 @@ const AdminHome = () => {
         <div className='md:ml-[45vh]'>
           <Routes>
             <Route path='/' element={<Statistics navcolor={navColor} mode={mode} />}></Route>
-            <Route path='addproduct' element={<AddProduct />}></Route>
+            <Route path='addproduct' element={<AddProduct navcolor={navColor} mode={mode} />}></Route>
             <Route path='viewproducts' element={<ViewProducts navcolor={navColor} mode={mode} />}></Route>
             <Route path='vieworders' element={<ViewOrders navcolor={navColor} mode={mode} />}></Route>
             <Route path='editpassword' element={<EditPassword navcolor={navColor} mode={mode} />}></Route>
