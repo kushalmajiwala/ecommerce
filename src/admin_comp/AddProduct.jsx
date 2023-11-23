@@ -159,7 +159,7 @@ const AddProduct = ({ navcolor, mode }) => {
                 {
                   imageArr.length === 0
                     ?
-                    <p className='font-bold text-lg'>No Image Added</p>
+                    <p className='font-bold text-lg flex justify-center'>No Image Added</p>
                     :
                     imageArr.map((currImage, index) => {
                       return (
