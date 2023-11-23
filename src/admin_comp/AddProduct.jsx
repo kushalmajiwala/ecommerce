@@ -2,11 +2,18 @@ import React from 'react'
 import { useState } from 'react';
 import { RadioButton } from 'primereact/radiobutton';
 import { InputText } from 'primereact/inputtext';
-import { FileUpload } from 'primereact/fileupload';
+// import { FileUpload } from 'primereact/fileupload';
+import { createClient } from '@supabase/supabase-js';
+import { data } from 'autoprefixer';
+import { v4 as uuidv4 } from 'uuid';
+
+const supabase = createClient("https://ngaxtqtjphtkyssalygr.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5nYXh0cXRqcGh0a3lzc2FseWdyIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY4ODM4NjI4MywiZXhwIjoyMDAzOTYyMjgzfQ.xeYb9sOv7xv0IsOjEoKj9vTyUxi3K29PHjsHj00HJRU")
+const storage_url = "https://ngaxtqtjphtkyssalygr.supabase.co/storage/v1/object/public/images"
 
 const AddProduct = ({ navcolor, mode }) => {
 
   const [colorArr, setColorArr] = useState([]);
+  const [imageArr, setImageArr] = useState([]);
   const [color, setColor] = useState("#000000");
   const [featured, setFeatured] = useState(true);
   const [image, setImage] = useState("");
@@ -19,15 +26,18 @@ const AddProduct = ({ navcolor, mode }) => {
     setColorArr([]);
   }
 
-  const onImageSelected = (e) => {
-    // alert(URL.createObjectURL(e.target.files[0]))
-    let img_url = e.target.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(img_url);
-    reader.onload = (ee) => {
-      alert(ee.target.result);
-    }
-    alert(image);
+  const onImageSelected = async (e) => {
+    let img = e.target.files[0];
+    const { data, error } = await supabase.storage
+      .from('images')
+      .upload(uuidv4() + ".jpg", img, {
+        cacheControl: '3600',
+        upsert: false
+      })
+
+    if (error) console.log(error);
+    const image_url = storage_url + "/" + data.path;
+    setImageArr(prevImage => [...prevImage, image_url]);
   }
 
   return (
@@ -145,6 +155,21 @@ const AddProduct = ({ navcolor, mode }) => {
                 <input class="block w-full mb-5 text-xl text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="default_size" type="file" value={image} name='file' onChange={(e) => onImageSelected(e)} />
               </div>
             </div>
+            <div className='md:flex md:justify-around'>
+                {
+                  imageArr.length === 0
+                    ?
+                    <p className='font-bold text-lg'>No Image Added</p>
+                    :
+                    imageArr.map((currImage, index) => {
+                      return (
+                        <div className='flex justify-center mt-2'>
+                         <img src={currImage} alt="no-image" className=' w-48 h-40' />
+                        </div>
+                      )
+                    })
+                }
+              </div>
           </div>
         </div>
       </div>
