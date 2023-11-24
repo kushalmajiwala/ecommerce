@@ -120,9 +120,67 @@ const AdminProvider = ({ children }) => {
             .from('products')
             .select('*')
 
-        if(error) console.log(error);
-        if(data) {
+        if (error) console.log(error);
+        if (data) {
             setProducts({ ...products, product: data, total_product: data.length })
+        }
+    }
+
+    const addNewProduct = async (productName, companyName, price, category, description, colorArr, featured, stock, imageArr) => {
+        const { data, error } = await supabase
+            .from('products')
+            .insert([
+                {
+                    name: productName,
+                    company: companyName,
+                    price: parseInt(price),
+                    colors: colorArr,
+                    image: imageArr[0],
+                    description: description,
+                    category: category,
+                    featured: featured
+                }
+            ])
+            .select()
+
+        if (error) console.log(error);
+        if (data) {
+            console.log(data);
+            console.log("Product Added...");
+
+            const { data1, error } = await supabase
+                .from('product_details')
+                .insert([
+                    {
+                        id: data[0].id,
+                        name: productName,
+                        price: parseInt(price),
+                        company: companyName,
+                        colors: colorArr,
+                        description: description,
+                        category: category,
+                        featured: featured,
+                        stock: stock,
+                        reviews: 45,
+                        stars: 4.3,
+                        image: [{
+                            url: imageArr[0]
+                        },
+                        {
+                            url: imageArr[1]
+                        },
+                        {
+                            url: imageArr[2]
+                        },
+                        {
+                            url: imageArr[3]
+                        }
+                        ]
+                    },
+                ])
+                .select()
+                if(error) console.log(error);
+                if(data1) console.log(data1);
         }
     }
 
@@ -133,7 +191,7 @@ const AdminProvider = ({ children }) => {
     }, [])
 
     return (
-        <AdminContext.Provider value={{ ...state, ...contactData, ...orderData, ...products, getAdminDetailsByUsername, getTotalUsers, getTotalProducts, getTotalCarts, getTotalOrders, updatePassword, getContactDetails, removeContactMessage }}>
+        <AdminContext.Provider value={{ ...state, ...contactData, ...orderData, ...products, getAdminDetailsByUsername, getTotalUsers, getTotalProducts, getTotalCarts, getTotalOrders, updatePassword, getContactDetails, removeContactMessage, addNewProduct }}>
             {children}
         </AdminContext.Provider>
     )
