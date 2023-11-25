@@ -43,11 +43,13 @@ const AdminProductList = ({ products, navcolor, mode }) => {
               products.map((curElem, index) => {
                 const { id, name, image, price, description, category } = curElem;
                 return (
-                  <div key={index} className='bg-white w-11/12 md:w-5/6 ml-[4vw] md:ml-[6vw] p-2 md:flex md:justify-center md:pt-5 mt-4 shadow-md'>
-                    <figure className='md:w-[22vw] flex items-center justify-center md:justify-start px-2 pt-2 mr-5'>
-                      <img src={image} alt={name} className='w-72 h-40' />
-                    </figure>
-                    <div className='pr-5 flex items-center'>
+                  <div key={index} className='bg-white w-11/12 md:w-5/6 ml-[4vw] md:ml-[6vw] p-2 md:flex  md:pt-5 mt-4 shadow-md'>
+                    <div className=''>
+                      <figure className='w-full md:w-[200px] flex items-center justify-center md:justify-start px-2 pt-2 mr-5'>
+                        <img src={image} alt={name} className='w-180px md:w-[15vw] h-40' />
+                      </figure>
+                    </div>
+                    <div className='pr-5 flex justify-start items-center'>
                       <div className='w-full -mt-2'>
                         <p className='text-2xl -mt-1'>{name}</p>
                         <p className='text-sm -mt-2 text-gray-400'><FormatPrice price={price} /></p>
@@ -119,9 +121,11 @@ const AdminProductList = ({ products, navcolor, mode }) => {
               const { id, name, image, price, description, category } = curElem;
               return (
                 <div key={index} className={`${navcolor} w-11/12 md:w-5/6 ml-[4vw] md:ml-[6vw] p-2 md:flex md:justify-center md:pt-5 border-2 border-gray-100 mt-4 shadow-md`}>
-                  <figure className='md:w-[22vw] flex items-center justify-center md:justify-start px-2 pt-2 mr-5'>
-                    <img src={image} alt={name} className='w-72 h-40' />
-                  </figure>
+                 <div className=''>
+                      <figure className='w-full md:w-[200px] flex items-center justify-center md:justify-start px-2 pt-2 mr-5'>
+                        <img src={image} alt={name} className='w-180px md:w-[15vw] h-40' />
+                      </figure>
+                    </div>
                   <div className='pr-5 flex items-center'>
                     <div className='w-full -mt-2'>
                       <p className='text-2xl -mt-1 text-white'>{name}</p>
