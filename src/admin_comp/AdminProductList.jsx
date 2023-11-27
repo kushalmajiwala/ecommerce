@@ -128,7 +128,7 @@ const AdminProductList = ({ products, navcolor, mode }) => {
                   <div key={index} className='bg-white w-11/12 md:w-5/6 ml-[4vw] md:ml-[6vw] p-2 md:flex  md:pt-5 mt-4 shadow-md'>
                     <div className=''>
                       <figure className='w-full md:w-[200px] flex items-center justify-center md:justify-start px-2 pt-2 mr-5'>
-                        <img src={image} alt={name} className='w-180px md:w-[15vw] h-40' />
+                        <img src={image} alt={name} className='w-5/6 md:w-[15vw] h-40' />
                       </figure>
                     </div>
                     <div className='pr-5 flex justify-start items-center'>
@@ -347,7 +347,7 @@ const AdminProductList = ({ products, navcolor, mode }) => {
                 <div key={index} className={`${navcolor} w-11/12 md:w-5/6 ml-[4vw] md:ml-[6vw] p-2 md:flex md:justify-center md:pt-5 border-2 border-gray-100 mt-4 shadow-md`}>
                   <div className=''>
                     <figure className='w-full md:w-[200px] flex items-center justify-center md:justify-start px-2 pt-2 mr-5'>
-                      <img src={image} alt={name} className='w-180px md:w-[15vw] h-40' />
+                      <img src={image} alt={name} className='w-5/6 md:w-[15vw] h-40' />
                     </figure>
                   </div>
                   <div className='pr-5 flex items-center'>
