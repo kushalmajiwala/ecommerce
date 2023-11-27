@@ -52,7 +52,7 @@ const AddProduct = ({ navcolor, mode }) => {
     setImageArr(prevImage => [...prevImage, image_url]);
   }
 
-  const validateFields = () => {
+  const validateFields = async () => {
     if (productName === "" || companyName === "" || price === "" || category === "" || description === "" || stock === "") {
       setEmptyField(true);
     }
@@ -63,7 +63,7 @@ const AddProduct = ({ navcolor, mode }) => {
       setNoImage(true);
     }
     else {
-      addNewProduct(productName, companyName, price, category, description, colorArr, featured, stock, imageArr);
+      await addNewProduct(productName, companyName, price, category, description, colorArr, featured, stock, imageArr);
       setProductName("");
       setCompanyName("");
       setPrice("");

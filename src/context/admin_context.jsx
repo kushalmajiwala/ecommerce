@@ -179,9 +179,67 @@ const AdminProvider = ({ children }) => {
                     },
                 ])
                 .select()
-                if(error) console.log(error);
-                if(data1) console.log(data1);
+            if (error) console.log(error);
+            if (data1) console.log(data1);
         }
+    }
+
+    const getProductDetailsById = async (id) => {
+
+        let { data, error } = await supabase
+            .from('products')
+            .select("*")
+            .eq('id', id)
+
+        if (error) console.log(error);
+        if (data) return data;
+    }
+
+    const getProductStock = async (id) => {
+        let { data, error } = await supabase
+            .from('product_details')
+            .select("stock")
+            .eq('id', id)
+
+        if (error) console.log(error);
+        if (data) return data[0].stock;
+    }
+
+    const editProduct = async (editId, productName, companyName, price, category, description, colorArr, featured, stock) => {
+
+        const { data, error } = await supabase
+            .from('products')
+            .update({
+                name: productName,
+                company: companyName,
+                price: price,
+                colors: colorArr,
+                category: category,
+                description: description,
+                featured: featured,
+            })
+            .eq('id', editId)
+            .select()
+
+        if (error) console.log(error);
+        if (data) {
+            const { data1, error } = await supabase
+                .from('product_details')
+                .update({
+                    name: productName,
+                    company: companyName,
+                    price: price,
+                    colors: colorArr,
+                    category: category,
+                    description: description,
+                    featured: featured,
+                    stock: stock
+                })
+                .eq('id', editId)
+                .select()
+            if(error) console.log(error);
+        }
+        getAllProducts();
     }
 
     useEffect(() => {
@@ -191,7 +249,7 @@ const AdminProvider = ({ children }) => {
     }, [])
 
     return (
-        <AdminContext.Provider value={{ ...state, ...contactData, ...orderData, ...products, getAdminDetailsByUsername, getTotalUsers, getTotalProducts, getTotalCarts, getTotalOrders, updatePassword, getContactDetails, removeContactMessage, addNewProduct }}>
+        <AdminContext.Provider value={{ ...state, ...contactData, ...orderData, ...products, getAdminDetailsByUsername, getTotalUsers, getTotalProducts, getTotalCarts, getTotalOrders, updatePassword, getContactDetails, removeContactMessage, addNewProduct, editProduct, getProductDetailsById, getProductStock }}>
             {children}
         </AdminContext.Provider>
     )
