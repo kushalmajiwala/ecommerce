@@ -10,7 +10,7 @@ import { useAdminContext } from '../context/admin_context';
 
 const AdminProductList = ({ products, navcolor, mode }) => {
 
-  const { editProduct, getProductDetailsById, getProductStock } = useAdminContext();
+  const { editProduct, getProductDetailsById, getProductStock, deleteProductById } = useAdminContext();
 
   const [viewDetails, setViewDetails] = useState(false);
   const [viewDetailsId, setViewDetailsId] = useState("");
@@ -89,9 +89,11 @@ const AdminProductList = ({ products, navcolor, mode }) => {
     setDeleteProductId(id);
   }
 
-  const deleteProductConfirmed = () => {
+  const deleteProductConfirmed = async () => {
+    await deleteProductById(deleteProductId);
     setProductDeleted(true);
     setDeleteProduct(false);
+    setDeleteProductId("");
   }
 
   const closeDeleteProductDialog = () => {

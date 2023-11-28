@@ -4,7 +4,6 @@ import { Badge } from 'primereact/badge';
 import { useState } from 'react';
 import { useCartContext } from '../context/cart_context';
 import { useAuth0 } from "@auth0/auth0-react";
-import supabase from "../helpers/supabase_setup";
 import { useEffect } from 'react';
 
 const Nav = () => {
@@ -61,6 +60,9 @@ const Nav = () => {
                     <li className='p-2 sm:w-24 lg:w-32 text-center lg:px-4 mt-2 hover:bg-gray-200 rounded-3xl'>
                         <NavLink to='/contact' className='no-underline text-gray-500 opacity-100'>CONTACT</NavLink>
                     </li>
+                    <li className='p-2 sm:w-24 lg:w-32 text-center lg:px-4 mt-2 hover:bg-gray-200 rounded-3xl'>
+                        <NavLink to='/wishlist' className='no-underline text-gray-500 opacity-100'>WISHLIST</NavLink>
+                    </li>
                     {
                         isAuthenticated &&
                         <li className='p-2 text-center px-4 mt-2 text-gray-400 text-sm opacity-100'>
@@ -104,6 +106,9 @@ const Nav = () => {
                             </li>
                             <li className='p-3 mt-2'>
                                 <NavLink to='/contact' className='no-underline text-gray-500 opacity-100' onClick={updateNavVisibility}>CONTACT</NavLink>
+                            </li>
+                            <li className='p-3 mt-2'>
+                                <NavLink to='/wishlist' className='no-underline text-gray-500 opacity-100' onClick={updateNavVisibility}>WISHLIST</NavLink>
                             </li>
                             {
                                 isAuthenticated &&

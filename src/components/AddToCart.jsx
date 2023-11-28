@@ -29,6 +29,16 @@ const AddToCart = ({ product }) => {
         }
     }
 
+    const addToWishList = () => {
+        if(isAuthenticated) {
+
+        }
+        else
+        {
+            loginWithRedirect();
+        }
+    }
+
     return (
         <>
             <div>
@@ -52,6 +62,7 @@ const AddToCart = ({ product }) => {
             </div>
             <div className='mt-4'>
                 <NavLink to={isAuthenticated ? "/cart" : ""} onClick={addToCartOuter} className='no-underline text-white bg-blue-600 hover:bg-blue-500 rounded-md py-2 px-4'>ADD TO CART</NavLink>
+                <NavLink to={isAuthenticated ? "/wishlist" : ""} onClick={addToWishList} className='no-underline text-white bg-green-600 hover:bg-green-500 rounded-md py-2 px-4 ml-2'>ADD TO WISHLIST</NavLink>
             </div>
         </>
     )

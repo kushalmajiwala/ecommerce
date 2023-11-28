@@ -182,6 +182,7 @@ const AdminProvider = ({ children }) => {
             if (error) console.log(error);
             if (data1) console.log(data1);
         }
+        getAllProducts();
     }
 
     const getProductDetailsById = async (id) => {
@@ -237,8 +238,26 @@ const AdminProvider = ({ children }) => {
                 })
                 .eq('id', editId)
                 .select()
-            if(error) console.log(error);
+            if (error) console.log(error);
         }
+        getAllProducts();
+    }
+
+    const deleteProductById = async (id) => {
+
+        const { error } = await supabase
+            .from('products')
+            .delete()
+            .eq('id', id)
+
+        if (error) console.log(error);
+
+        const { error1 } = await supabase
+            .from('product_details')
+            .delete()
+            .eq('id', id)
+
+        if(error1) console.log(error1);
         getAllProducts();
     }
 
@@ -249,7 +268,7 @@ const AdminProvider = ({ children }) => {
     }, [])
 
     return (
-        <AdminContext.Provider value={{ ...state, ...contactData, ...orderData, ...products, getAdminDetailsByUsername, getTotalUsers, getTotalProducts, getTotalCarts, getTotalOrders, updatePassword, getContactDetails, removeContactMessage, addNewProduct, editProduct, getProductDetailsById, getProductStock }}>
+        <AdminContext.Provider value={{ ...state, ...contactData, ...orderData, ...products, getAdminDetailsByUsername, getTotalUsers, getTotalProducts, getTotalCarts, getTotalOrders, updatePassword, getContactDetails, removeContactMessage, addNewProduct, editProduct, getProductDetailsById, getProductStock, deleteProductById }}>
             {children}
         </AdminContext.Provider>
     )

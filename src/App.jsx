@@ -13,6 +13,7 @@ import './index.css';
 import AdminHome from './admin_comp/AdminHome';
 import AdminLogin from './admin_comp/AdminLogin'
 import { useEffect, useState } from 'react';
+import WishList from './components/WishList';
 
 function App() {
   const [showAdmin, setShowAdmin] = useState(false);
@@ -41,6 +42,7 @@ function App() {
             <Route path="/products" element={<Products />}></Route>
             <Route path="/orders" element={<Orders />}></Route>
             <Route path="/contact" element={<Contact />}></Route>
+            <Route path="/wishlist" element={<WishList />}></Route>
             <Route path="/singleproduct/:id" element={<SingleProduct />}></Route>
             <Route path="/cart" element={<Cart />}></Route>
             <Route path="*" element={<ErrorPage />}></Route>
