@@ -13,6 +13,7 @@ import { CartProvider } from './context/cart_context';
 import { AdminProvider } from './context/admin_context.jsx';
 import { OrderProvider } from './context/order_context';
 import { ContactProvider } from './context/contact_context.jsx';
+import { WishlistProvider } from './context/wishlist_context.jsx';
 import { Auth0Provider } from '@auth0/auth0-react';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -29,9 +30,11 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <ContactProvider>
             <CartProvider>
               <OrderProvider>
-                <React.StrictMode>
-                  <App />
-                </React.StrictMode>
+                <WishlistProvider>
+                  <React.StrictMode>
+                    <App />
+                  </React.StrictMode>
+                </WishlistProvider>
               </OrderProvider>
             </CartProvider>
           </ContactProvider>
