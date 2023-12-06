@@ -20,8 +20,30 @@ const WishlistProvider = ({ children }) => {
             let { data } = await supabase.from('wishlist').select("*").eq("email", user.email);
             console.log(data);
             if (data) {
-                setState({ ...wishlistDetails, wishlist: data, wishlist_total_item: data.length });
+                setWishlistDetails({ ...wishlistDetails, wishlist: data, wishlist_total_item: data.length });
             }
+        }
+    }
+
+    const addToWishlist = async (id, color, quantity, product) => {
+        if (isAuthenticated) {
+            const insert_data = {
+                id: id,
+                email: user.email,
+                quantity: quantity,
+                color: color,
+                image: product.image[0].url,
+                max: product.stock,
+                name: product.name,
+                price: product.price,
+                description: product.description
+            }
+            const { error } = await supabase
+                .from('wishlist')
+                .insert(insert_data)
+                .select()
+            if (error) console.log(error);
+            getWishlistData();
         }
     }
 
@@ -30,7 +52,7 @@ const WishlistProvider = ({ children }) => {
     }, [isAuthenticated]);
 
     return (
-        <WishlistContext.Provider value={{ ...wishlistDetails }}>
+        <WishlistContext.Provider value={{ ...wishlistDetails, addToWishlist }}>
             {children}
         </WishlistContext.Provider>
     )

@@ -27,30 +27,32 @@ function App() {
   }, [])
   return (
     <>
-      <Router>
-        <Routes>
-          <Route path='/admin' element={<AdminLogin />}></Route>
-          <Route path='/adminhome/*' element={<AdminHome />}></Route>
-        </Routes>
-      </Router>
-      {showAdmin == false ?
+      <div className=''>
         <Router>
-          <Header />
           <Routes>
-            <Route path="/" element={<Home />}></Route>
-            <Route path="/about" element={<About />}></Route>
-            <Route path="/products" element={<Products />}></Route>
-            <Route path="/orders" element={<Orders />}></Route>
-            <Route path="/contact" element={<Contact />}></Route>
-            <Route path="/wishlist" element={<WishList />}></Route>
-            <Route path="/singleproduct/:id" element={<SingleProduct />}></Route>
-            <Route path="/cart" element={<Cart />}></Route>
-            <Route path="*" element={<ErrorPage />}></Route>
+            <Route path='/admin' element={<AdminLogin />}></Route>
+            <Route path='/adminhome/*' element={<AdminHome />}></Route>
           </Routes>
-          <Footer />
         </Router>
-        :
-        ""}
+        {showAdmin == false ?
+          <Router>
+            <Header />
+            <Routes>
+              <Route path="/" element={<Home />}></Route>
+              <Route path="/about" element={<About />}></Route>
+              <Route path="/products" element={<Products />}></Route>
+              <Route path="/orders" element={<Orders />}></Route>
+              <Route path="/contact" element={<Contact />}></Route>
+              <Route path="/wishlist" element={<WishList />}></Route>
+              <Route path="/singleproduct/:id" element={<SingleProduct />}></Route>
+              <Route path="/cart" element={<Cart />}></Route>
+              <Route path="*" element={<ErrorPage />}></Route>
+            </Routes>
+            <Footer />
+          </Router>
+          :
+          ""}
+      </div>
     </>
   );
 }

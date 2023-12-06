@@ -4,9 +4,11 @@ import CartAmountToggle from './CartAmountToggle';
 import { NavLink } from 'react-router-dom'
 import { useCartContext } from '../context/cart_context';
 import { useAuth0 } from "@auth0/auth0-react";
+import { useWishlistContext } from '../context/wishlist_context';
 
 const AddToCart = ({ product }) => {
     const { addToCart } = useCartContext();
+    const { addToWishlist } = useWishlistContext();
     const { isAuthenticated, loginWithRedirect, user } = useAuth0();
 
     const { id, colors, stock } = product;
@@ -29,9 +31,9 @@ const AddToCart = ({ product }) => {
         }
     }
 
-    const addToWishList = () => {
+    const addProductToWishList = async () => {
         if(isAuthenticated) {
-
+            addToWishlist(id, color, quantity, product);
         }
         else
         {
@@ -62,7 +64,7 @@ const AddToCart = ({ product }) => {
             </div>
             <div className='mt-4'>
                 <NavLink to={isAuthenticated ? "/cart" : ""} onClick={addToCartOuter} className='no-underline text-white bg-blue-600 hover:bg-blue-500 rounded-md py-2 px-4'>ADD TO CART</NavLink>
-                <NavLink to={isAuthenticated ? "/wishlist" : ""} onClick={addToWishList} className='no-underline text-white bg-green-600 hover:bg-green-500 rounded-md py-2 px-4 ml-2'>ADD TO WISHLIST</NavLink>
+                <NavLink to={isAuthenticated ? "/wishlist" : ""} onClick={addProductToWishList} className='no-underline text-white bg-green-600 hover:bg-green-500 rounded-md py-2 px-4 ml-2'>ADD TO WISHLIST</NavLink>
             </div>
         </>
     )

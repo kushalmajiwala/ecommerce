@@ -62,6 +62,27 @@ const CartProvider = ({ children }) => {
             getAllCartData();
         }
     }
+    const addToCartFromWishlist = async (id, color, quantity, product) => {
+        if (isAuthenticated) {
+            const insert_data = {
+                id: id,
+                email: user.email,
+                quantity: quantity,
+                color: color,
+                image: product.image,
+                max: product.max,
+                name: product.name,
+                price: product.price,
+                description: product.description
+            }
+            const { error } = await supabase
+                .from('cart')
+                .insert(insert_data)
+                .select()
+            if (error) console.log(error);
+            getAllCartData();
+        }
+    }
     const removeItem = async (id) => {
         const { error } = await supabase
             .from('cart')
@@ -173,7 +194,7 @@ const CartProvider = ({ children }) => {
     }, [isAuthenticated]);
 
     return (
-        <CartContext.Provider value={{ ...state, ...userDetails, addToCart, removeItem, clearCart, setDecrease, setIncrease, addUserDetails, getUserDetails, addUserOnFirstLogin }}>
+        <CartContext.Provider value={{ ...state, ...userDetails, addToCart, removeItem, clearCart, setDecrease, setIncrease, addUserDetails, getUserDetails, addUserOnFirstLogin, addToCartFromWishlist }}>
             {children}
         </CartContext.Provider>
     )
