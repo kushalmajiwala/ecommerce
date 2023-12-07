@@ -5,7 +5,6 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend, BarElement, CategoryScal
 import { Pie } from 'react-chartjs-2';
 import { Doughnut } from 'react-chartjs-2';
 import { Bar } from 'react-chartjs-2';
-import * as faker from '@faker-js/faker';
 
 ChartJS.register(ArcElement, Tooltip, Legend, BarElement, CategoryScale, LinearScale);
 
