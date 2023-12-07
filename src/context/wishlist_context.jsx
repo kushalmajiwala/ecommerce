@@ -16,7 +16,7 @@ const WishlistProvider = ({ children }) => {
     const [wishlistDetails, setWishlistDetails] = useState(initialWishlistData);
 
     const getWishlistData = async () => {
-        if(isAuthenticated){
+        if (isAuthenticated) {
             let { data } = await supabase.from('wishlist').select("*").eq("email", user.email);
             console.log(data);
             if (data) {
@@ -47,12 +47,22 @@ const WishlistProvider = ({ children }) => {
         }
     }
 
+    const deleteWishlistItem = async (wishlistid) => {
+        const { error } = await supabase
+            .from('wishlist')
+            .delete()
+            .eq('wishid', wishlistid)
+        
+        if(error) console.log(error);
+        getWishlistData();
+    }
+
     useEffect(() => {
         getWishlistData();
     }, [isAuthenticated]);
 
     return (
-        <WishlistContext.Provider value={{ ...wishlistDetails, addToWishlist }}>
+        <WishlistContext.Provider value={{ ...wishlistDetails, addToWishlist, deleteWishlistItem }}>
             {children}
         </WishlistContext.Provider>
     )

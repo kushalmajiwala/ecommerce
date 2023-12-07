@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react';
 import { useAdminContext } from '../context/admin_context';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
 import { Doughnut } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
+import * as faker from '@faker-js/faker';
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+ChartJS.register(ArcElement, Tooltip, Legend, BarElement, CategoryScale, LinearScale);
 
 const Statistics = ({ navcolor, mode }) => {
     const { getTotalUsers, getTotalProducts, getTotalCarts, getTotalOrders } = useAdminContext();
@@ -25,10 +27,12 @@ const Statistics = ({ navcolor, mode }) => {
                     'blue',
                     'orange'
                 ],
-                
+
             },
         ],
     }
+
+    const labels = ['Laptop', 'Mobile', 'Headphone', 'Watch', 'Speaker'];
 
     const getTotalUserNumber = async () => {
         const userlength = await getTotalUsers();
@@ -36,6 +40,41 @@ const Statistics = ({ navcolor, mode }) => {
             setTotalUsers(userlength);
         }
     }
+
+    const bar_options = {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top',
+            },
+            title: {
+                display: true,
+                text: 'Chart.js Bar Chart',
+            },
+        },
+    };
+
+    const bar_data1 = {
+        labels,
+        datasets: [
+            {
+                label: 'Product Category based sells',
+                data: [60, 40, 20, 60, 70, 80, 90, 100, 30, 10],
+                backgroundColor: 'pink',
+                
+            },
+        ],
+    };
+    const bar_data2 = {
+        labels,
+        datasets: [
+            {
+                label: 'Dataset 1',
+                data: [60, 40, 20, 60, 70, 80, 90, 100, 30, 10],
+                backgroundColor: 'cyan',
+            },
+        ],
+    };
 
     const getTotalProductNumber = async () => {
         const productlength = await getTotalProducts();
@@ -156,10 +195,21 @@ const Statistics = ({ navcolor, mode }) => {
                 </div>
                 <div className='md:hidden justify-around'>
                     <div className={`mx-3 pb-3 ${navcolor} p-2 shadow-md rounded-md flex justify-center`}>
-                        <Pie data={data}  />
+                        <Pie data={data} />
                     </div>
                     <div className={`mx-3 pb-3 ${navcolor} p-2 mt-4 shadow-md rounded-md flex justify-center`}>
                         <Doughnut data={data} />
+                    </div>
+                </div>
+                <div className='mt-5 flex justify-center'>
+                    <div className={`w-11/12 ${navcolor}`}>
+                        {
+                            mode == "light"
+                                ?
+                                <Bar options={bar_options} data={bar_data1} />
+                                :
+                                <Bar options={bar_options} data={bar_data2} />
+                        }
                     </div>
                 </div>
             </div>
