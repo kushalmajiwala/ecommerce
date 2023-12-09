@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { Dialog } from 'primereact/dialog';
 import { useContactContext } from '../context/contact_context';
 
-const OrderItem = ({ orderid, id, placed_date, placed_address, item_image, item_price, quantity, name, description, order_status }) => {
+const OrderItem = ({ orderid, id, placed_date, placed_address, item_image, item_price, quantity, name, description, order_status, returned }) => {
     const { isAuthenticated, user } = useAuth0();
     const { cancelOrder } = useOrderContext();
     const { addFeedback } = useContactContext();
@@ -133,14 +133,14 @@ const OrderItem = ({ orderid, id, placed_date, placed_address, item_image, item_
                             <p className='text-sm'>ORDER PLACED <br />{placed_date}</p>
                         </div>
                         {
-                            order_status == "remaining" ? 
-                            <div className='hidden md:block'>
-                                <p><span className=' text-orange-600'>Expected Delivery</span> <br />{delivery_date}</p>
-                            </div>
-                            : 
-                            <div className='hidden md:block'>
-                                <p><span className='text-green-600'>Delivered On</span> <br />{delivery_date}</p>
-                            </div>
+                            order_status == "remaining" ?
+                                <div className='hidden md:block'>
+                                    <p><span className=' text-orange-600'>Expected Delivery</span> <br />{delivery_date}</p>
+                                </div>
+                                :
+                                <div className='hidden md:block'>
+                                    <p><span className='text-green-600'>Delivered On</span> <br />{delivery_date}</p>
+                                </div>
                         }
                         <div>
                             <p className='text-sm'>TOTAL <br /><FormatPrice price={item_price} /></p>
@@ -156,22 +156,34 @@ const OrderItem = ({ orderid, id, placed_date, placed_address, item_image, item_
                                     <NavLink to={`../singleproduct/${id}`} className="no-underline text-sky-600 hover:text-sky-800 hover:underline">View Order Details</NavLink><br />
                                     <span className='text-red-600 hover:text-red-800 hover:underline cursor-pointer' onClick={() => deleteConfirm()}>Cancel Booking</span>
                                 </p>
-                                :
-                                <p className='pt-3 pr-4 hidden md:block'>
-                                    <NavLink to={`../singleproduct/${id}`} className="no-underline text-sky-600 hover:text-sky-800 hover:underline">View Order Details</NavLink><br />
-                                    <span className='text-green-500 cursor-pointer'>Delivered</span>
-                                </p>
+                                : (returned)
+                                    ?
+                                    <p className='pt-3 pr-4 hidden md:block'>
+                                        <NavLink to={`../singleproduct/${id}`} className="no-underline text-sky-600 hover:text-sky-800 hover:underline">View Order Details</NavLink><br />
+                                        <span className='text-orange-400 cursor-pointer'>Returned</span>
+                                    </p>
+                                    :
+                                    <p className='pt-3 pr-4 hidden md:block'>
+                                        <NavLink to={`../singleproduct/${id}`} className="no-underline text-sky-600 hover:text-sky-800 hover:underline">View Order Details</NavLink><br />
+                                        <span className='text-green-500 cursor-pointer'>Delivered</span>
+                                    </p>
                             }
                             {order_status == "remaining" ?
                                 <p className='pt-3 pr-4 md:hidden'>
                                     <NavLink to={`../singleproduct/${id}`} className="no-underline text-sky-600 hover:text-sky-800 hover:underline">View Order</NavLink><br />
                                     <span className='text-red-600 hover:text-red-800 hover:underline cursor-pointer' onClick={() => deleteConfirm()}>Cancel Order</span>
                                 </p>
-                                :
-                                <p className='pt-3 pr-4 md:hidden'>
-                                    <NavLink to={`../singleproduct/${id}`} className="no-underline text-sky-600 hover:text-sky-800 hover:underline">View Order</NavLink><br />
-                                    <span className='text-green-500 cursor-pointer'>Delivered</span>
-                                </p>
+                                : (returned)
+                                    ?
+                                    <p className='pt-3 pr-4 md:hidden'>
+                                        <NavLink to={`../singleproduct/${id}`} className="no-underline text-sky-600 hover:text-sky-800 hover:underline">View Order</NavLink><br />
+                                        <span className='text-orange-400 cursor-pointer'>Returned</span>
+                                    </p>
+                                    :
+                                    <p className='pt-3 pr-4 md:hidden'>
+                                        <NavLink to={`../singleproduct/${id}`} className="no-underline text-sky-600 hover:text-sky-800 hover:underline">View Order</NavLink><br />
+                                        <span className='text-green-500 cursor-pointer'>Delivered</span>
+                                    </p>
                             }
                         </div>
                     </div>
@@ -200,6 +212,13 @@ const OrderItem = ({ orderid, id, placed_date, placed_address, item_image, item_
                         <p className='text-lg font-medium'>{name}</p>
                         <p className='-mt-4'>{description.substr(0, 140)}...</p>
                         <NavLink to={`../singleproduct/${id}`} className="no-underline"><button className='border-2 px-3 py-1 -mt-4 border-blue-500 bg-blue-100 hover:bg-blue-500 text-black hover:text-white rounded-lg'>View Your Item</button></NavLink>
+                        {order_status == "remaining"
+                            ? ""
+                            : (returned === false)
+                                ?
+                                <button className='border-2 ml-4 px-3 py-1 -mt-4 border-orange-400 bg-orange-100 hover:bg-orange-400 text-black hover:text-white rounded-lg'>Return Product</button>
+                                : ""
+                        }
                         {order_status == "remaining"
                             ? ""
                             :

@@ -74,7 +74,7 @@ const Cart = () => {
         }
         else if (payment_method === "cash") {
             cart.map((curElem) => {
-                addOrderData(curElem.id, user.email, new Date().toLocaleDateString(), address, curElem.image, curElem.price, curElem.amount, curElem.name, curElem.description, "remaining");
+                addOrderData(curElem.id, user.email, new Date().toLocaleDateString(), address, curElem.image, curElem.price, curElem.quantity, curElem.name, curElem.description, "remaining");
             })
             setOrderPlace(true);
         }
@@ -86,7 +86,7 @@ const Cart = () => {
 
     const paymentSuccessful = () => {
         cart.map((curElem) => {
-            addOrderData(curElem.id, user.email, new Date().toLocaleDateString(), address, curElem.image, curElem.price, curElem.amount, curElem.name, curElem.description, "remaining");
+            addOrderData(curElem.id, user.email, new Date().toLocaleDateString(), address, curElem.image, curElem.price, curElem.quantity, curElem.name, curElem.description, "remaining");
         })
         setOrderPlace(true);
     }
