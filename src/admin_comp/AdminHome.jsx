@@ -10,6 +10,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ViewOrders from './ViewOrders';
 import EditPassword from './EditPassword';
 import { Tooltip } from 'primereact/tooltip';
+import ReturnProduct from './ReturnProduct';
 
 const AdminHome = () => {
 
@@ -63,6 +64,11 @@ const AdminHome = () => {
     openSidebar();
   }
 
+  const redirectReturnProduct = () => {
+    navigate("returnproduct");
+    openSidebar();
+  }
+
   const redirectContectMessage = () => {
     navigate("contactmessage");
     openSidebar();
@@ -87,6 +93,10 @@ const AdminHome = () => {
 
   const redirectEditPasswordBig = () => {
     navigate("editpassword");
+  }
+
+  const redirectReturnProductBig = () => {
+    navigate("returnproduct");
   }
 
   const redirectContectMessageBig = () => {
@@ -191,6 +201,14 @@ const AdminHome = () => {
             </div>
             <div
               className="py-2.5 mt-3 flex px-3 rounded-md duration-300 cursor-pointer hover:bg-blue-600 text-white"
+              onClick={redirectReturnProduct}>
+              <div>
+                <i className="bi bi-arrow-counterclockwise text-2xl"></i>
+                <span className="text-lg ml-4 text-gray-200">RETURNED PRODUCTS</span>
+              </div>
+            </div>
+            <div
+              className="py-2.5 mt-3 flex px-3 rounded-md duration-300 cursor-pointer hover:bg-blue-600 text-white"
               onClick={redirectContectMessage}>
               <div>
                 <i className="bi bi-person-rolodex text-2xl"></i>
@@ -225,7 +243,7 @@ const AdminHome = () => {
             </div>
             {/* <div class="my-4 bg-gray-600 h-[1px]"></div> */}
             <div
-              className="py-2.5 mt-3 flex px-3 rounded-md duration-300 cursor-pointer hover:bg-blue-600 text-white"
+              className="py-2.5 mt-2 flex px-3 rounded-md duration-300 cursor-pointer hover:bg-blue-600 text-white"
               onClick={redirectStatisticsBig}>
               <div>
                 <i className="bi bi-clipboard-data text-2xl"></i>
@@ -233,7 +251,7 @@ const AdminHome = () => {
               </div>
             </div>
             <div
-              className="py-2.5 mt-3 flex px-3 rounded-md duration-300 cursor-pointer hover:bg-blue-600 text-white"
+              className="py-2.5 mt-2 flex px-3 rounded-md duration-300 cursor-pointer hover:bg-blue-600 text-white"
               onClick={redirectAddProductBig}>
               <div>
                 <i className="bi bi-plus-lg text-2xl"></i>
@@ -241,7 +259,7 @@ const AdminHome = () => {
               </div>
             </div>
             <div
-              className="py-2.5 mt-3 flex px-3 rounded-md duration-300 cursor-pointer hover:bg-blue-600 text-white"
+              className="py-2.5 mt-2 flex px-3 rounded-md duration-300 cursor-pointer hover:bg-blue-600 text-white"
               onClick={redirectViewProductsBig}>
               <div>
                 <i className="bi bi-eye-fill text-2xl"></i>
@@ -249,7 +267,7 @@ const AdminHome = () => {
               </div>
             </div>
             <div
-              className="py-2.5 mt-3 flex px-3 rounded-md duration-300 cursor-pointer hover:bg-blue-600 text-white"
+              className="py-2.5 mt-2 flex px-3 rounded-md duration-300 cursor-pointer hover:bg-blue-600 text-white"
               onClick={redirectViewOrdersBig}>
               <div>
                 <i className="bi bi-eye-fill text-2xl"></i>
@@ -257,7 +275,7 @@ const AdminHome = () => {
               </div>
             </div>
             <div
-              className="py-2.5 mt-3 flex px-3 rounded-md duration-300 cursor-pointer hover:bg-blue-600 text-white"
+              className="py-2.5 mt-2 flex px-3 rounded-md duration-300 cursor-pointer hover:bg-blue-600 text-white"
               onClick={redirectEditPasswordBig}>
               <div>
                 <i className="bi bi-pencil-square text-2xl"></i>
@@ -265,7 +283,15 @@ const AdminHome = () => {
               </div>
             </div>
             <div
-              className="py-2.5 mt-3 flex px-3 rounded-md duration-300 cursor-pointer hover:bg-blue-600 text-white"
+              className="py-2.5 mt-2 flex px-3 rounded-md duration-300 cursor-pointer hover:bg-blue-600 text-white"
+              onClick={redirectReturnProductBig}>
+              <div>
+                <i className="bi bi-arrow-counterclockwise text-2xl"></i>
+                <span className="text-lg ml-4 text-gray-200">RETURNED PRODUCTS</span>
+              </div>
+            </div>
+            <div
+              className="py-2.5 mt-2 flex px-3 rounded-md duration-300 cursor-pointer hover:bg-blue-600 text-white"
               onClick={redirectContectMessageBig}>
               <div>
                 <i className="bi bi-person-rolodex text-2xl"></i>
@@ -273,7 +299,7 @@ const AdminHome = () => {
               </div>
             </div>
             <div
-              className="py-2.5 mt-3 flex px-3 rounded-md duration-300 cursor-pointer hover:bg-blue-600 text-white"
+              className="py-2.5 mt-2 flex px-3 rounded-md duration-300 cursor-pointer hover:bg-blue-600 text-white"
               onClick={logout}>
               <div>
                 <i className="bi bi-box-arrow-right text-2xl"></i>
@@ -286,22 +312,22 @@ const AdminHome = () => {
           <div className='md:flex md:justify-between'>
             <div className="mb-3 ml-[45vh] hidden md:block">
               <div className="relative mt-[23px] ml-3 flex w-[25vw] flex-wrap items-stretch">
-               {
-                mode === "light" ? 
-                <input
-                type="search"
-                className="relative m-0 -mr-0.5 block w-[1px] min-w-0 flex-auto rounded-l border border-solid border-neutral-300 bg-transparent bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-black outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary"
-                placeholder="Search"
-                aria-label="Search"
-                aria-describedby="button-addon1" />
-                :
-                <input
-                type="search"
-                className="relative m-0 -mr-0.5 block w-[1px] min-w-0 flex-auto rounded-l border border-solid border-neutral-300 bg-transparent bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-white outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary"
-                placeholder="Search"
-                aria-label="Search"
-                aria-describedby="button-addon1" />
-               }
+                {
+                  mode === "light" ?
+                    <input
+                      type="search"
+                      className="relative m-0 -mr-0.5 block w-[1px] min-w-0 flex-auto rounded-l border border-solid border-neutral-300 bg-transparent bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-black outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary"
+                      placeholder="Search"
+                      aria-label="Search"
+                      aria-describedby="button-addon1" />
+                    :
+                    <input
+                      type="search"
+                      className="relative m-0 -mr-0.5 block w-[1px] min-w-0 flex-auto rounded-l border border-solid border-neutral-300 bg-transparent bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-white outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary"
+                      placeholder="Search"
+                      aria-label="Search"
+                      aria-describedby="button-addon1" />
+                }
 
                 <button
                   className="relative z-[2] flex items-center rounded-r bg-primary px-6 py-2.5 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-primary-700 hover:shadow-lg focus:bg-primary-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-primary-800 active:shadow-lg"
@@ -355,6 +381,7 @@ const AdminHome = () => {
             <Route path='viewproducts' element={<ViewProducts navcolor={navColor} mode={mode} />}></Route>
             <Route path='vieworders' element={<ViewOrders navcolor={navColor} mode={mode} />}></Route>
             <Route path='editpassword' element={<EditPassword navcolor={navColor} mode={mode} />}></Route>
+            <Route path='returnproduct' element={<ReturnProduct navcolor={navColor} mode={mode} />}></Route>
             <Route path='contactmessage' element={<ContactMessage navcolor={navColor} mode={mode} />}></Route>
           </Routes>
         </div>
