@@ -6,11 +6,12 @@ import { Button } from 'primereact/button';
 import { useOrderContext } from '../context/order_context';
 import { useState } from 'react';
 import { Dialog } from 'primereact/dialog';
+import { InputTextarea } from 'primereact/inputtextarea';
 import { useContactContext } from '../context/contact_context';
 
 const OrderItem = ({ orderid, id, placed_date, placed_address, item_image, item_price, quantity, name, description, order_status, returned }) => {
     const { isAuthenticated, user } = useAuth0();
-    const { cancelOrder } = useOrderContext();
+    const { cancelOrder, returnProduct } = useOrderContext();
     const { addFeedback } = useContactContext();
     const [confirmDelete, setConfirmDelete] = useState(false);
     const [showFeedback, setShowFeedback] = useState(false);
@@ -23,6 +24,11 @@ const OrderItem = ({ orderid, id, placed_date, placed_address, item_image, item_
     const [feedbackMessage, setFeedbackMessage] = useState("");
     const [successFeedback, setSuccessFeedback] = useState(false);
     const [errorFeedback, setErrorFeedback] = useState(false);
+    const [returnDialog, setReturnDialog] = useState(false);
+    const [returnReason, setReturnReason] = useState("");
+    const [returnOtherReason, setReturnOtherReason] = useState("");
+    const [emptyReturnField, setEmptyReturnField] = useState(false);
+    const [productReturned, setProductReturned] = useState(false);
 
     var dt = new Date(placed_date);
     dt.setDate(dt.getDate() + 5);
@@ -63,6 +69,37 @@ const OrderItem = ({ orderid, id, placed_date, placed_address, item_image, item_
         setStarColor3("text-gray-300");
         setStarColor4("text-gray-300");
         setStarColor5("text-gray-300");
+    }
+
+    const openReturnDialog = () => {
+        setReturnDialog(true);
+    }
+
+    const closeReturnDialog = () => {
+        setReturnDialog(false);
+        setReturnReason("");
+        setReturnOtherReason("");
+    }
+
+    const confirmReturnProduct = async () => {
+        if (returnReason === "") {
+            setEmptyReturnField(true);
+        }
+        else if(returnReason === "Other reason" && returnOtherReason === "")
+        {
+            setEmptyReturnField(true);
+        }
+        else if(returnReason === "Other reason" && returnOtherReason !== "")
+        {
+            await returnProduct(orderid, id, user.email, new Date().toLocaleDateString(), item_image, item_price, name, returnOtherReason);
+            setProductReturned(true);
+            closeReturnDialog();
+        }
+        else {
+            await returnProduct(orderid, id, user.email, new Date().toLocaleDateString(), item_image, item_price, name, returnReason);
+            setProductReturned(true);
+            closeReturnDialog();
+        }
     }
 
     const changeColor = (num) => {
@@ -216,7 +253,7 @@ const OrderItem = ({ orderid, id, placed_date, placed_address, item_image, item_
                             ? ""
                             : (returned === false)
                                 ?
-                                <button className='border-2 ml-4 px-3 py-1 -mt-4 border-orange-400 bg-orange-100 hover:bg-orange-400 text-black hover:text-white rounded-lg'>Return Product</button>
+                                <button className='border-2 ml-4 px-3 py-1 -mt-4 border-orange-400 bg-orange-100 hover:bg-orange-400 text-black hover:text-white rounded-lg' onClick={openReturnDialog}>Return Product</button>
                                 : ""
                         }
                         {order_status == "remaining"
@@ -275,6 +312,65 @@ const OrderItem = ({ orderid, id, placed_date, placed_address, item_image, item_
                             <i className="bi bi-check-circle text-7xl text-green-500"></i>
                             <p className="font-bold text-lg mt-4">
                                 Feedback Submitted Successfully
+                            </p>
+                        </div>
+                    </div>
+                </Dialog>
+                <Dialog header="RETURN PRODUCT" draggable={false} visible={returnDialog} onHide={closeReturnDialog}
+                    className="w-11/12 md:w-2/3">
+                    <div className='pl-5'>
+                        <div className='mt-3 flex'>
+                            <input type="radio" name="reason" className='w-4 h-4 cursor-pointer' value="Recieved a broken/damanged item" checked={returnReason === "Recieved a broken/damanged item"} onChange={(e) => setReturnReason(e.target.value)} /><span className='text-lg -mt-[9px] ml-3'>Recieved a broken/damanged item</span>
+                        </div>
+                        <div className='mt-3'>
+                            <input type="radio" name="reason" className='w-4 h-4 cursor-pointer' value="The product received is defective" checked={returnReason === "The product received is defective"} onChange={(e) => setReturnReason(e.target.value)} /><span className='text-lg -mt-[5px] ml-3'>The product received is defective</span>
+                        </div>
+                        <div className='mt-3'>
+                            <input type="radio" name="reason" className='w-4 h-4 cursor-pointer' value="Item didn't on arrival/installation" checked={returnReason === "Item didn't on arrival/installation"} onChange={(e) => setReturnReason(e.target.value)} /><span className='text-lg -mt-[5px] ml-3'>Item didn't on arrival/installation</span>
+                        </div>
+                        <div className='mt-3'>
+                            <input type="radio" name="reason" className='w-4 h-4 cursor-pointer' value="Received wrong item" checked={returnReason === "Received wrong item"} onChange={(e) => setReturnReason(e.target.value)} /><span className='text-lg -mt-[5px] ml-3'>Received wrong item</span>
+                        </div>
+                        <div className='mt-3'>
+                            <input type="radio" name="reason" className='w-4 h-4 cursor-pointer' value="Other reason" checked={returnReason === "Other reason"} onChange={(e) => setReturnReason(e.target.value)} /><span className='text-lg -mt-[5px] ml-3'>Other reason</span>
+                        </div>
+                    </div>
+                    {
+                        returnReason === "Other reason"
+                            ?
+                            <div className='pl-5 pt-3'>
+                                <div className=''>
+                                    <p className='text-lg font-medium'>Enter Your Reason :- </p>
+                                    <InputTextarea value={returnOtherReason} onChange={(e) => setReturnOtherReason(e.target.value)} rows={5} cols={50} />
+                                </div>
+                            </div>
+                            :
+                            ""
+                    }
+                    <div className='flex justify-end w-full mt-4'>
+                        <div className='flex justify-end w-56 md:w-full'>
+                            <button className=' px-3 py-2 text-white bg-red-600 mr-5 hover:bg-red-500' onClick={confirmReturnProduct} >RETURN PRODUCT</button>
+                            <button className=" px-3 py-2 text-white bg-green-600 hover:bg-green-500" severity="secondary" onClick={closeReturnDialog} >CLOSE</button>
+                        </div>
+                    </div>
+                </Dialog>
+                <Dialog visible={emptyReturnField} draggable={false} className="w-11/12 md:w-1/3" onHide={() => setEmptyReturnField(false)}>
+                    <div className='flex justify-center'>
+                        <div className='text-center'>
+                            <i className="bi bi-x-circle text-7xl text-red-500"></i>
+                            <p className="font-bold text-lg mt-4">
+                                Please Give Reason to return
+                            </p>
+                        </div>
+                    </div>
+                </Dialog>
+                <Dialog visible={productReturned} draggable={false} className="w-11/12 md:w-1/3" onHide={() => setProductReturned(false)}>
+                    <div className='flex justify-center'>
+                        <div className='text-center'>
+                            <i className="bi bi-check-circle text-7xl text-green-500"></i>
+                            <p className="font-bold text-lg mt-4">
+                                Product Returned Successfully<br />
+                                Refund will be provided in 48 hours
                             </p>
                         </div>
                     </div>

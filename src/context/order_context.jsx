@@ -54,7 +54,36 @@ const OrderProvider = ({ children }) => {
             .from('orders')
             .delete()
             .eq('orderid', orderid)
-        if(error) console.log(error);
+        if (error) console.log(error);
+        getAllOrderData();
+    }
+
+    const returnProduct = async (orderid, id, email, returned_date, item_image, item_price, name, return_reason) => {
+
+        const { data, error } = await supabase
+            .from('orders')
+            .update({ returned: true })
+            .eq('orderid', orderid)
+            .select()
+        if (error) console.log(error);
+        if (data) {
+
+            const { data1, error1 } = await supabase
+                .from('return_product')
+                .insert([
+                    {
+                        id: id,
+                        email: email, 
+                        returned_date, returned_date,
+                        item_image: item_image, 
+                        item_price: item_price, 
+                        name: name,
+                        return_reason: return_reason
+                    },
+                ])
+                .select()
+            if (error1) console.log(error1);
+        }
         getAllOrderData();
     }
 
@@ -63,7 +92,7 @@ const OrderProvider = ({ children }) => {
     }, [isAuthenticated]);
 
     return (
-        <OrderContext.Provider value={{ ...state, addOrderData, cancelOrder }}>
+        <OrderContext.Provider value={{ ...state, addOrderData, cancelOrder, returnProduct }}>
             {children}
         </OrderContext.Provider>
     )
