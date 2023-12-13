@@ -6,7 +6,6 @@ const ViewOrders = ({ navcolor, mode }) => {
 
   const { order, total_order } = useAdminContext();
 
-
   if (total_order === 0) {
     return (
       <>

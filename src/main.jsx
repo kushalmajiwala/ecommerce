@@ -15,6 +15,7 @@ import { OrderProvider } from './context/order_context';
 import { ContactProvider } from './context/contact_context.jsx';
 import { WishlistProvider } from './context/wishlist_context.jsx';
 import { Auth0Provider } from '@auth0/auth0-react';
+import { ReturnProvider } from './context/return_context.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Auth0Provider
@@ -31,9 +32,11 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             <CartProvider>
               <OrderProvider>
                 <WishlistProvider>
-                  <React.StrictMode>
-                    <App />
-                  </React.StrictMode>
+                  <ReturnProvider>
+                    <React.StrictMode>
+                      <App />
+                    </React.StrictMode>
+                  </ReturnProvider>
                 </WishlistProvider>
               </OrderProvider>
             </CartProvider>
